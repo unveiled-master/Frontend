@@ -1,0 +1,49 @@
+.header{
+  display: flex;
+  align-items: center;
+  flex-flow: row wrap;
+}
+
+.actionButtons{
+  display: flex;
+  gap: 0.5rem;
+  margin-left: auto;
+  align-items: center;
+}
+
+.actionButtons input{
+  height: 1.85rem;
+  outline: none;
+}
+
+.actionButtons button{
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  padding: 0rem 1rem;
+  background-color: white;
+  color: black;
+  border-radius: 10rem;
+  corner-shape: squircle;
+  border: none;
+  height: 1.85rem;
+  font-weight: bold;
+  box-shadow: 0px 0px 10px rgba(0, 0, 0, 0.096);
+}
+
+.actionButtons button:nth-child(2){
+  box-shadow:  0px 0px 4px #fff;
+}
+
+.actionButtons button:hover{
+  cursor: pointer;
+}
+
+.actionButtons button:nth-child(2) {
+  background-color: #033d1f;
+  color: white;
+}
+
+.actionButtons button svg{
+  height: 60%;
+}

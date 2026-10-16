@@ -1,0 +1,396 @@
+:root {
+  --sidebar-bg: linear-gradient(
+    145deg,
+    #163629 0%,
+    #10251d 55%,
+    #0b1c15 100%
+  );
+  --sidebar-text: #b8c9c0;
+  --sidebar-muted: #82968b;
+  --sidebar-hover: #1b382b;
+  --accent: #34d399;
+  --accent-text: #062c1c;
+  --content-bg: #f7f9f8;
+}
+
+* {
+  box-sizing: border-box;
+  margin: 0;
+  padding: 0;
+}
+
+body{
+  height: 100dvh;
+  display: flex;
+  background-color: #ecfbff;
+}
+
+.main {
+  height: 100%;
+  width: 100%;
+  padding: 1rem;
+  display: flex;
+  flex-flow: row nowrap;
+  gap: 1rem;
+  font-family: "DM Sans", sans-serif;
+  color: #1f2937;
+  align-items: flex-start;
+  overflow-y: scroll;
+  overflow-x: hidden;
+  position: relative;
+}
+
+.collapsed .companyName,
+.collapsed ul p.ulName,
+.collapsed ul a p,
+.collapsed .asideFooter .profile,
+.collapsed a .dropDownIcon,
+.collapsed .subMenu
+{
+  display: none;
+}
+
+.collapsed ul a,
+.collapsed .asideFooter{
+  justify-content: center;
+}
+
+.aside.collapsed{
+  width: 70px;
+}
+
+
+.collapseToggle{
+  position: absolute;
+  top: 10%;
+  right: 0;
+  border: none;
+  background-color: transparent;
+  color: #6b7a81;
+  cursor: pointer;
+}
+
+.companyName{
+  white-space: nowrap;
+}
+
+.aside {
+  width: 350px;
+  display: flex;
+  flex-flow: column nowrap;
+  background: var(--sidebar-bg);
+  padding: 0rem 1rem;
+  border-radius: 0.875rem;
+  color: white;
+  overflow-y: hidden;
+  justify-content: space-between;
+  position: relative;
+  transition: width linear 0.3s;
+  overflow: hidden;
+  position: relative;
+  margin: 1rem 0rem 1rem 1rem;
+}
+
+.aside .uls{
+  overflow-y: scroll;
+}
+
+.aside .uls::-webkit-scrollbar{
+  display: none;
+}
+
+/* Brand */
+
+.aside .header {
+  display: flex;
+  align-items: center;
+  gap: 0.7rem;
+  font-family: "Manrope", sans-serif;
+  justify-content: center;
+  /* font-family: monospace; */
+  font-size: 1.2rem;
+  font-weight: 800;
+  letter-spacing: 0.30rem;
+  height: 5rem;
+  border-bottom: 1px solid #294137;
+  margin-bottom: 0.25rem;
+}
+
+/* Navigation groups */
+
+.aside ul {
+  display: flex;
+  flex-flow: column nowrap;
+  gap: 0.3rem;
+  list-style: none;
+}
+
+.aside ul p.ulName {
+  margin: 0 0 0.6rem;
+  padding: 0 0.75rem;
+  color: var(--sidebar-muted);
+  font-size: 0.67rem;
+  font-weight: 700;
+  letter-spacing: 0.1em;
+  text-transform: uppercase;
+}
+
+.aside ul li {
+  min-height: 2.5rem;
+}
+
+.aside a{
+  display: flex;
+  align-items: center;
+  text-decoration: none;
+  width: 100%;
+  height: 100%;
+  min-height: 2.5rem;
+  gap: 0.75rem;
+  padding: 0 0.75rem;
+  border-radius: 0.5rem;
+  color: var(--sidebar-text);
+  font-size: 0.875rem;
+  font-weight: 500;
+  transition:
+    background-color 160ms ease,
+    color 160ms ease;
+}
+
+.aside a.active {
+  color: #34d399;
+  background-color: #1b382b;
+  font-weight: 600;
+}
+
+.aside a.active svg {
+  color: #34d399;
+}
+
+.aside a:visited {
+  color: var(--sidebar-text);
+}
+
+.aside a:hover{
+  color: #ffffff;
+  background-color: var(--sidebar-hover);
+  cursor: pointer;
+}
+
+@supports (interpolate-size: allow-keywords) {
+  :root {
+    interpolate-size: allow-keywords;
+  }
+}
+
+.subMenu{
+  height: 0;
+  overflow: hidden;
+  transition: height linear 0.3s;
+}
+
+.subMenu.isOpen{
+  height: auto;
+}
+
+
+.dropDownIcon{
+  margin-left: auto;
+  transform: rotate(0deg);
+  transition: transform 2s linear;
+}
+
+.dropDownIcon.isOpen{
+  transform: rotate(90deg);
+}
+
+/* Active route */
+
+.aside a.active {
+  color: var(--accent);
+  background-color: #1b382b;
+  font-weight: 600;
+}
+
+.aside a.active svg {
+  color: var(--accent);
+}
+
+/* Icons */
+
+.aside a svg {
+  width: 1.1rem;
+  height: 1.1rem;
+  flex-shrink: 0;
+  color: var(--sidebar-muted);
+  transition: color 160ms ease;
+}
+
+.aside a:hover svg {
+  color: #ffffff;
+}
+
+/* Sidebar footer */
+
+.aside .asideFooter {
+  border-top: 1px solid #294137;
+  padding: 0.5rem 0;
+  display: flex;
+  flex-flow: row nowrap;
+  align-items: center;
+  font-size: 0.8rem;
+  margin: 0;
+}
+
+.asideFooter .avatar {
+  height: 2.25rem;
+  width: 2.25rem;
+  flex-shrink: 0;
+  background-color: #27523d;
+  color: #a7f3d0;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  border: 1px solid #38664e;
+  border-radius: 50%;
+  font-weight: 700;
+}
+
+.asideFooter .profile{
+  display: flex;
+  flex-flow: column nowrap;
+  text-align: left;
+  font-size: 0.65rem;
+  color: var(--sidebar-muted);
+  text-transform: uppercase;
+  font-weight: bolder;
+}
+
+.mainContent {
+  flex: 1;
+  min-width: 0;
+  overflow-y: visible;
+  display: flex;
+  flex-flow: column nowrap;
+  gap: 0.5rem;
+  /* overflow-x: hidden; */
+}
+
+.mainContentNav{
+  display: flex;
+  align-items: center;
+  justify-content: flex-end;
+  gap: 0.5rem;
+  background: var(--sidebar-bg);
+  color: var(--sidebar-text);
+  padding: 0.5rem;
+  border-radius: 0.875rem;
+  position: sticky;
+  top: 0;
+  z-index: 39;
+}
+
+.mainContentNav .greeting{
+  margin-right: auto;
+}
+
+.mainContentNav .greeting h1{
+  color: white;
+  display: flex;
+  gap: 0.5rem;
+}
+
+.mainContentNav .greeting h1 div{
+  font-family: 'Roboto', sans-serif;
+  font-weight: 100;
+}
+
+.mainContentNav .icon{
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  height: 2rem;
+  width: 2rem;
+  border-radius: 50%;
+  color: #fff;
+}
+
+.mainContentNav .icon img{
+  height: 100%;
+  width: 100%;
+  object-fit: cover;
+  border-radius: 50%;
+}
+
+
+
+
+
+@media (max-width: 768px) {
+  .main {
+    padding: 0.5rem;
+    gap: 0.5rem;
+  }
+
+}
+
+@media (max-width: 600px) {
+  .aside{
+    margin: 0;
+  }
+
+  .aside .companyName,
+  .aside ul p.ulName,
+  .aside ul a p,
+  .aside .asideFooter .profile
+  {
+    display: none;
+  }
+
+  .aside ul a,
+  .aside .asideFooter{
+    justify-content: center;
+  }
+
+  .aside{
+    width: 70px;
+  }
+
+  .expand{
+    position: fixed;
+    top: 0;
+    left: 0;
+    height: 100%;
+    width: 100%;
+  }
+
+  .expand .companyName,
+  .expand ul p.ulName,
+  .expand ul a p,
+  .expand .asideFooter .profile
+  {
+    display: flex;
+  }
+
+  .expand ul a,
+  .expand .asideFooter{
+    justify-content: flex-start;
+  }
+
+  .aside.expand{
+    border-radius: 0%;
+    z-index: 40;
+  }
+
+  /* .row section{
+    width: 100%;
+  } */
+
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .aside a,
+  .aside a svg {
+    transition: none;
+  }
+}

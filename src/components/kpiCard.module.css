@@ -1,0 +1,89 @@
+:root{
+  --green: #06642d;
+  --gold: #b49507;
+  --red: #d1110b;
+  --blue: #0e7dbd;
+}
+
+.kpiContainer{
+  display: flex;
+  flex-flow: column nowrap;
+  justify-content: space-evenly;
+  width: max(22.5%, 225px);
+  background: white;
+  box-shadow: 0px 0px 15px #2c2c2c33;
+  padding: 0.5rem;
+  border-radius: 0.875rem;
+  flex: 1 0 0;
+  min-width: 200px;
+}
+
+.kpiInfo .hero{
+  display: flex;
+  align-items: center;
+  gap: 0.5rem;
+}
+
+.kpiInfo .title{
+  font-weight: bold;
+  color: #444444c5;
+}
+
+.value{
+  font-size: 140%;
+  font-weight: 1000;
+}
+
+.green{
+  border-top: 5px solid var(--green);
+}
+
+.green .iconContainer{
+  background-color: var(--green);
+}
+
+.gold{
+  border-top: 5px solid var(--gold);
+}
+
+.gold .iconContainer{
+  background-color: var(--gold);
+}
+
+.red{
+  border-top: 5px solid var(--red);
+}
+
+.red .iconContainer{
+  background-color: var(--red);
+}
+
+.blue{
+  border-top: 5px solid var(--blue);
+}
+
+.blue .iconContainer{
+  background-color: var(--blue);
+}
+
+.iconContainer{
+  background-color: red;
+  height: 2rem;
+  width: 2rem;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  border-radius: 0.25rem;
+  color: white;
+}
+
+.iconContainer svg{
+  fill: rgba(255, 255, 255, 0.219);
+}
+
+@media (max-width: 400px) {
+  .kpiContainer{
+    width: 100%;
+  }
+}
+

@@ -1,0 +1,15 @@
+.active{
+  color: rgb(0, 255, 106);
+  background-color: rgba(108, 255, 140, 0.055);
+}
+
+.inactive{
+  color: rgb(184, 28, 7);
+  background-color: rgba(255, 140, 125, 0.151);
+}
+
+.status{
+  display: inline-block;
+  border-radius: 0.25rem;
+  padding: 0.25rem 0.5rem;
+}

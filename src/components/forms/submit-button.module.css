@@ -1,0 +1,20 @@
+
+#submitButton{
+  height: 2rem;
+  background-color: #108981;
+  border: none;
+  color: whitesmoke;
+  border-radius: 0.5rem;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  gap: 0.5rem;
+  margin: 2rem 0 0.75rem 0;
+  cursor: pointer;
+}
+
+.disabled{
+  pointer-events: none;
+  opacity: 0.8;
+  background-color: #1089815b;
+}

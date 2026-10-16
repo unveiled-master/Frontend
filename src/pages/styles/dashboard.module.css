@@ -1,0 +1,36 @@
+
+@import url("https://fonts.googleapis.com/css2?family=DM+Sans:wght@400;500;600;700&family=Manrope:wght@500;600;700;800&display=swap");
+@import url('https://fonts.googleapis.com/css2?family=Roboto:wght@100&display=swap');
+
+
+section:not(.kpiSection){
+  background-color: white;
+  padding: 0.5rem;
+  border-radius: 0.875rem;
+  box-shadow: 0px 0px 40px #24232310;
+}
+
+.row:not(.kpiSection){
+  display: flex;
+  flex-flow: row wrap;
+  justify-content: space-between;
+  gap: 0.5rem;
+}
+
+.row section{
+  flex: 1 1 400px;
+  min-width: 0;
+}
+
+.kpiSection{
+  display: flex;
+  flex-flow: row wrap;
+  gap: 1rem;
+  justify-content: space-between;
+}
+
+.recentSales {
+  display: flex;
+  flex-flow: column nowrap;
+  gap: 1rem;
+}

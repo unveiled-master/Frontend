@@ -1,0 +1,33 @@
+
+footer {
+  position: fixed;
+  width: 100%;
+  bottom: 0;
+  height: 2rem;
+  padding: 0 0.5rem;
+  background-color: #10898127;
+  color: rgba(34, 34, 34, 0.719);
+}
+
+footer ul{
+  height: 100%;
+  list-style-type: none;
+  display: flex;
+  gap: 1rem;
+  align-items: center;
+  justify-content: flex-end;
+}
+
+footer ul li{
+  font-size: 0.75rem;
+}
+
+footer ul li:first-child{
+  margin-right: auto;
+  display: flex;
+  align-items: center;
+}
+
+footer svg{
+  height: 0.75rem;
+}

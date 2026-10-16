@@ -1,0 +1,81 @@
+
+.container {
+  width: 100%;
+  overflow-x: auto;
+}
+
+.table {
+  width: 100%;
+  border-collapse: collapse;
+  text-align: left;
+  white-space: nowrap;
+}
+
+.table th {
+  padding: 14px 16px;
+  color: #64748b;
+  background: #f8fafc;
+  font-size: 12px;
+  font-weight: 600;
+  text-transform: uppercase;
+  letter-spacing: 0.04em;
+  border-bottom: 1px solid #e2e8f0;
+}
+
+.table td {
+  padding: 16px;
+  color: #334155;
+  font-size: 14px;
+  border-bottom: 1px solid #f1f5f9;
+}
+
+.table tbody tr:hover {
+  background: #f8fafc;
+}
+
+.saleId {
+  color: #059669;
+  font-weight: 600;
+}
+
+.status {
+  display: inline-block;
+  padding: 5px 10px;
+  border-radius: 4px;
+  font-size: 12px;
+  font-weight: 600;
+}
+
+.completed {
+  color: #047857;
+  background: #d1fae5;
+}
+
+.pending {
+  color: #b45309;
+  background: #fef3c7;
+}
+
+.cancelled {
+  color: #b91c1c;
+  background: #fee2e2;
+}
+
+.empty {
+  padding: 28px !important;
+  color: #64748b !important;
+  text-align: center;
+}
+
+
+.sortHeader {
+  display: flex;
+  align-items: center;
+  gap: 6px;
+  cursor: pointer;
+  user-select: none;
+}
+
+.sortHeader:hover {
+  color: #059669;
+}

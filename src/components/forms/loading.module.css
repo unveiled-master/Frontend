@@ -1,0 +1,19 @@
+.loading {
+  border-radius: 50%;
+  border: 3px solid rgb(252, 252, 252);
+  height: 1.75rem;
+  width: 1.75rem;
+  border-top-color: rgb(125, 190, 192);
+  font-weight: bolder;
+  animation: rotate 2s linear infinite;
+}
+
+
+@keyframes rotate {
+  from {
+    transform: rotate(0deg);
+  }
+  to {
+    transform: rotate(360deg);
+  }
+}
