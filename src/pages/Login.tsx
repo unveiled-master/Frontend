@@ -4,7 +4,7 @@ import { useState } from 'react';
 import Footer from '../components/footer';
 import InputField from '../components/forms/input-field';
 import SubmitButton from '../components/forms/submit-button';
-import { Link } from 'react-router-dom';
+import { Link, Navigate } from 'react-router-dom';
 import { AuthService } from '../services/auth.service';
 import Icon from '../components/icon';
 
@@ -25,6 +25,7 @@ function Login() {
       setSubmittedMessage(response.message)
       if (response.success) {
         setSubmitted(true)
+        localStorage.setItem("accessToken", response.accessToken)
       }
     } catch (error) {
       setLoading(false);
@@ -32,7 +33,10 @@ function Login() {
     }
   }
 
-  if(submitted) return <h1>{submittedMessage}</h1>
+  if(submitted) {
+    alert(submittedMessage);
+    return <Navigate to="/"/>
+  }
 
   return (
     <>
