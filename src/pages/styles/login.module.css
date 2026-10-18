@@ -34,36 +34,6 @@
   width: 80%;
 }
 
-.main .iconBg{
-  display: flex;
-  justify-content: center;
-  align-items: center;
-  height: 5rem;
-}
-
-.main .icon{
-  background: rgba(128, 128, 128, 0.151);
-  height: 3rem;
-  width: 3rem;
-  display: flex;
-  justify-content: center;
-  align-items: center;
-  border-radius: 0.5rem;
-}
-
-.main .iconContainer{
-  display: flex;
-  justify-content: center;
-  align-items: center;
-  padding: 0.5rem;
-  border-radius: 0.5rem;
-  background: #108981;
-}
-
-.main .icon svg{
-  color: white;
-}
-
 .main .content form div.inputField {
   width: 100%;
   display: flex;

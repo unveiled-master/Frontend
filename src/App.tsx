@@ -9,15 +9,19 @@ import DashboardLayout from "./layout/dashboardLayout";
 import CreateProduct from "./pages/CreateProduct";
 import Categories from "./pages/Categories";
 import Products from "./pages/Products";
+import Suppliers from "./pages/Suppliers";
+import CreateSupplier from "./pages/CreateSupplier";
 
 function App() {
   return (
     <Routes>
       <Route element={<DashboardLayout/>}>
         <Route path="/" element={<Dashboard />} />
+        <Route path="/products" element={<Products />} />
         <Route path="/create-product" element={<CreateProduct />} />
         <Route path="/categories" element={<Categories />} />
-        <Route path="/products" element={<Products />} />
+        <Route path="/suppliers" element={<Suppliers />} />
+        <Route path="/create-supplier" element={<CreateSupplier />} />
       </Route>
       <Route path="/login" element={<Login />} />
       <Route path="/register" element={<Register />} />

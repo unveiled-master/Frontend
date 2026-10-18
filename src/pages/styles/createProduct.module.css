@@ -1,68 +1,85 @@
 .page {
-  width: min(100%, 980px);
-  margin: 0 auto;
-  padding: 1.5rem 1.75rem 3rem;
-  color: #172b2a;
-}
-
-.pageHeader,
-.formFooter {
+  min-height: 100%;
   display: flex;
-  align-items: center;
-  justify-content: space-between;
-  gap: 1rem;
+  justify-content: center;
+  align-items: flex-start;
+  padding: 2rem 1rem;
+  background: rgba(245, 245, 245, 0.89);
 }
 
-.pageHeader { margin-bottom: 1.5rem; }
-.eyebrow { margin: 0 0 .35rem; color: #16877d; font-size: .7rem; font-weight: 750; letter-spacing: .12em; }
-.pageHeader h1 { margin: 0; font-size: clamp(1.55rem, 3vw, 2rem); letter-spacing: -.035em; }
-.subtitle { margin: .45rem 0 0; color: #71807f; font-size: .92rem; }
+.content {
+  width: min(100%, 760px);
+  padding: 1.5rem 0;
+  background: white;
+  border: 2px solid #00000007;
+  border-radius: .5rem;
+  box-shadow: 0 0 30px #0000000c;
+  display: flex;
+  justify-content: center;
+}
 
-.form { display: grid; gap: 1rem; }
+.form {
+  display: flex;
+  flex-flow: column nowrap;
+  /* align-items: center; */
+  width: min(88%, 640px);
+}
+
+.form h1 { margin: .75rem 0 .25rem; font-size: 1.25rem; }
+.subtitle { margin: 0 0 1rem; color: #777; font-size: .75rem; }
+.iconBg { display: flex; justify-content: center; align-items: center; height: 4rem; }
+.icon { width: 3rem; height: 3rem; display: flex; justify-content: center; align-items: center; border-radius: .5rem; background: #80808026; }
+.iconContainer { display: flex; justify-content: center; align-items: center; padding: .5rem; border-radius: .5rem; background: #033e22; }
+.iconContainer svg { width: 1.1rem; height: 1.1rem; color: white; }
+
 .card {
-  padding: 1.35rem 1.5rem 1.5rem;
-  border: 1px solid #e6eeec;
-  border-radius: .8rem;
-  background: #fff;
-  box-shadow: 0 5px 20px #193e3908;
+  width: 100%;
+  padding: 1rem 0;
+  border-top: 1px solid #00000010;
 }
-.sectionHeading { display: flex; align-items: center; gap: .75rem; margin-bottom: 1.35rem; }
-.sectionIcon { display: grid; place-items: center; width: 2.35rem; height: 2.35rem; color: #108981; background: #eaf7f4; border-radius: .65rem; }
-.sectionHeading h2 { margin: 0; font-size: 1rem; font-weight: 700; }
-.sectionHeading p { margin: .25rem 0 0; color: #7b8988; font-size: .8rem; }
-.fields { display: grid; grid-template-columns: repeat(2, minmax(0, 1fr)); gap: 1.15rem 1.25rem; }
-.fields :global(label) { color: #394b49; font-size: .8rem; font-weight: 600; }
+.sectionHeading { display: flex; align-items: center; gap: .65rem; margin-bottom: 1rem; text-align: left; }
+.sectionIcon { width: 2rem; height: 2rem; display: grid; place-items: center; color: white; background: #033e22; border-radius: .45rem; }
+.sectionHeading h2 { margin: 0; color: #333; font-size: .88rem; }
+.sectionHeading p { margin: .2rem 0 0; color: #949494; font-size: .65rem; }
+.fields { display: grid; grid-template-columns: repeat(2, minmax(0, 1fr)); gap: .85rem 1rem; }
+.fields > div { min-width: 0; }
+.fullWidth { grid-column: 1 / -1; }
+.fields :global(label) { color: #4e4e4e; font-size: .65rem; font-weight: bold; }
 .fields :global(input), .fields :global(select), .fields :global(textarea) {
   box-sizing: border-box;
-  min-height: 2.7rem;
-  padding: .55rem .75rem .55rem 2.35rem !important;
-  border: 1px solid #e2eae8 !important;
-  border-radius: .45rem !important;
-  outline: none;
-  background: #fbfdfc !important;
-  color: #263b39;
+  min-height: 2rem;
+  padding: .4rem .6rem .4rem 2rem !important;
+  border: 1px solid #0000000d !important;
+  border-radius: .25rem !important;
+  background: #1089810c !important;
+  color: #333;
   font: inherit;
-  font-size: .86rem;
+  font-size: .75rem;
 }
-.fields :global(input:focus), .fields :global(select:focus), .fields :global(textarea:focus) { border-color: #108981 !important; box-shadow: 0 0 0 3px #10898118; }
-.fields :global(textarea) { min-height: 6rem; padding-top: .7rem !important; }
-.fields :global(.inputField) { align-items: stretch; }
-.fields :global(.input svg:first-child) { left: .75rem; color: #82918f; }
-.fullWidth { grid-column: 1 / -1; }
-.imageUpload { display: flex; align-items: center; gap: .8rem; padding: 1rem; border: 1px dashed #bfd5d1; border-radius: .55rem; background: #fbfdfc; color: #16877d; cursor: pointer; }
-.imageUpload span { display: grid; gap: .2rem; }
-.imageUpload strong { color: #39504d; font-size: .82rem; font-weight: 650; }
-.imageUpload small { color: #84918f; font-size: .74rem; }
+.fields :global(textarea) { min-height: 5rem; padding-top: .5rem !important; }
+.fields :global(.input) { position: relative; }
+.fields :global(.input svg:first-child) { left: 2%; color: #777; }
+.imageUpload { min-height: 3.5rem; display: flex; align-items: center; gap: .7rem; padding: .65rem; border: 1px dashed #10898160; border-radius: .35rem; color: #108981; cursor: pointer; }
+.imageUpload span { display: flex; flex-direction: column; gap: .15rem; }
+.imageUpload strong { color: #4e4e4e; font-size: .7rem; }
+.imageUpload small { color: #949494; font-size: .6rem; }
 .imageUpload input { display: none; }
-.backButton, .submitButton { min-height: 2.65rem; padding: 0 1.1rem; border-radius: .45rem; font: inherit; font-size: .86rem; font-weight: 650; cursor: pointer; }
-.backButton { border: 1px solid #dce6e4; color: #52615f; background: #fff; }
-.submitButton { border: 1px solid #108981; color: #fff; background: #108981; box-shadow: 0 3px 8px #10898125; }
-.submitButton:hover { background: #0d766f; }
-.formFooter { justify-content: flex-end; padding-top: .25rem; }
+.formActions { width: 100%; display: flex; align-items: center; justify-content: flex-end; gap: .8rem; padding: .5rem 0; }
+.backButton { height: 2rem; padding: 0 .8rem; border: 1px solid #ddd; border-radius: .4rem; color: #555; background: white; font-size: .75rem; cursor: pointer; }
+.formActions :global(button[id]) { flex: 1; max-width: 250px; margin: 0; }
+/* button{margin: 0;} */
 
-@media (max-width: 650px) {
-  .page { padding: 1rem 1rem 2rem; }
-  .card { padding: 1.1rem; }
-  .fields { grid-template-columns: 1fr; gap: 1rem; }
+@media (max-width: 560px) {
+  .page { padding: 1rem .5rem; }
+  .content { padding: 1rem 0; }
+  .form { width: 90%; }
+  .fields { grid-template-columns: 1fr; }
   .fullWidth { grid-column: auto; }
+}
+
+#buttonArea{
+  margin: 0.5rem 0rem;
+  display: flex;
+  flex-flow: column nowrap;
+  gap: 0.5rem;
 }

@@ -6,6 +6,7 @@ import InputField from '../components/forms/input-field';
 import SubmitButton from '../components/forms/submit-button';
 import { Link } from 'react-router-dom';
 import { AuthService } from '../services/auth.service';
+import Icon from '../components/icon';
 
 const auth = new AuthService();
 
@@ -38,13 +39,7 @@ function Login() {
     <main className={styles.main}>
       <div className={styles.content}>
         <form onSubmit={handleSubmit}>
-          <div className={styles.iconBg}>
-            <div className={styles.icon}>
-              <div className={styles.iconContainer}>
-                <Archive/>
-              </div>
-            </div>
-          </div>
+          <Icon icon={Archive}/>
           <h4>ProdUp Inventory and Sales</h4>
           <p className={styles.small}>Enter your enterprise credentials to access your sales and inventory dashboard</p>
 

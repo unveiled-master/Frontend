@@ -22,7 +22,7 @@
 body{
   height: 100dvh;
   display: flex;
-  background-color: #ecfbff;
+  /* background-color: #ecfbff; */
 }
 
 .main {
@@ -273,6 +273,7 @@ body{
   display: flex;
   flex-flow: column nowrap;
   gap: 0.5rem;
+  height: 100%;
   /* overflow-x: hidden; */
 }
 

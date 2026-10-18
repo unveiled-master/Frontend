@@ -1,0 +1,29 @@
+.iconBg{
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  height: 5rem;
+}
+
+.icon{
+  background: rgba(128, 128, 128, 0.151);
+  height: 3rem;
+  width: 3rem;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  border-radius: 0.5rem;
+}
+
+.iconContainer{
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  padding: 0.5rem;
+  border-radius: 0.5rem;
+  background: #108981;
+}
+
+.icon svg{
+  color: white;
+}

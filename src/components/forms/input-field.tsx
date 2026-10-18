@@ -2,7 +2,7 @@ import { Eye, EyeClosed, type LucideIcon } from "lucide-react";
 import { useState, } from "react"
 import styles from './input-field.module.css';
 
-type Option = {
+export type Option = {
   id:string
   name: string
 }
@@ -48,9 +48,9 @@ export default function InputField({
         label ? (<div className={styles.labels}>
             <label>{label}</label>
 
-            {type === "email" && (
+            {/* {type === "email" && (
               <span>Your special identity</span>
-            )}
+            )} */}
           </div>)
           : 
           ""

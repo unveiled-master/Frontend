@@ -5,6 +5,7 @@ import {
   Layers3, Package, Tag, Truck,
 } from "lucide-react";
 import InputField from "../components/forms/input-field";
+import SubmitButton from "../components/forms/submit-button";
 import { Categories, Products, type Product } from "../data/data";
 import styles from "./styles/createProduct.module.css";
 
@@ -20,6 +21,7 @@ export default function CreateProduct() {
   const navigate = useNavigate();
   const [form, setForm] = useState<ProductForm>(initialForm);
   const [imageName, setImageName] = useState("");
+  const [preview, setPreview] = useState<string>("");
 
   const update = (field: keyof ProductForm) => (value: string) => {
     setForm((current) => ({
@@ -43,16 +45,11 @@ export default function CreateProduct() {
 
   return (
     <main className={styles.page}>
-      <header className={styles.pageHeader}>
-        <div>
-          <p className={styles.eyebrow}>INVENTORY</p>
-          <h1>Create product</h1>
-          <p className={styles.subtitle}>Add a product and its details to your inventory.</p>
-        </div>
-        <button className={styles.backButton} type="button" onClick={() => navigate("/products")}>Cancel</button>
-      </header>
-
+    <div className={styles.content}>
       <form className={styles.form} onSubmit={handleSubmit}>
+        <div className={styles.iconBg}><div className={styles.icon}><div className={styles.iconContainer}><Package /></div></div></div>
+        <h1>Create product</h1>
+        <p className={styles.subtitle}>Add a product to your inventory</p>
         <section className={styles.card}>
           <div className={styles.sectionHeading}>
             <span className={styles.sectionIcon}><Package size={18} /></span>
@@ -77,8 +74,13 @@ export default function CreateProduct() {
                 if (!file) return;
                 setImageName(file.name);
                 setForm((current) => ({ ...current, img: URL.createObjectURL(file) }));
+                setPreview(URL.createObjectURL(file));
               }} />
             </label>
+            
+              {preview && (
+                <img src={preview} alt={`Image of ${form.name}`} />
+              )}
           </div>
         </section>
 
@@ -95,13 +97,17 @@ export default function CreateProduct() {
             <InputField label="Reserved stock" icon={Boxes} name="reservedStock" type="number" placeholder="0" value={String(form.reservedStock || "")} onFieldChanged={update("reservedStock")} />
             <InputField label="Status" icon={Package} name="status" type="select" value={form.status} options={[{ id: "active", name: "Active" }, { id: "inactive", name: "Inactive" }]} onFieldChanged={() => {}} onSelectChanged={(value) => setForm((current) => ({ ...current, status: value as Product["status"] }))} required />
           </div>
+          
+          
         </section>
-
-        <footer className={styles.formFooter}>
+        
+        <div id={styles.buttonArea}>
           <button className={styles.backButton} type="button" onClick={() => navigate("/products")}>Cancel</button>
-          <button className={styles.submitButton} type="submit">Create product</button>
-        </footer>
+          <SubmitButton name="Create product" />
+        </div>
+
       </form>
+      </div>
     </main>
   );
 }

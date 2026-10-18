@@ -1,0 +1,27 @@
+.formContent{
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  height: 100%;
+  flex-flow: column nowrap;
+}
+
+.content{
+  width: max(75%, 250px);
+  background-color: #fff;
+  padding: 1rem;
+  border-radius: 20px;
+  corner-shape: squircle;
+  box-shadow: 3px 2px 10px #2323231f, 0px 0px 20px 2px #00000023;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  flex-flow: column nowrap;
+}
+
+.content form {
+  display: flex;
+  width: 250px;
+  flex-flow: column nowrap;
+  /* gap: 0.25rem; */
+}
