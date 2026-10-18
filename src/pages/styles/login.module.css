@@ -6,6 +6,7 @@
 
 .main {
   height: 100%;
+  width: 100%;
   display: flex;
   justify-content: center;
   align-items: center;
@@ -13,7 +14,7 @@
 }
 
 .main .content {
-  width: max(35%, 300px);
+  width: max(25%, 300px);
   background-color: white;
   border: 2px solid #00000007;
   border-radius: 0.5rem;
@@ -75,7 +76,7 @@ label{
 
 .register{
   font-weight: bolder;
-  color: #108981;
+  color: #014d21;
   cursor: pointer;
 }
 

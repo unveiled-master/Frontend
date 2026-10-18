@@ -16,17 +16,17 @@ import ProtectedRoute from "./ProtectedRoute";
 function App() {
   return (
     <Routes>
-      <Route element={<DashboardLayout/>}>
-        <ProtectedRoute isAuthenticated={false}>
+      <Route element={<ProtectedRoute isAuthenticated={false}/>}>
+        <Route element={<DashboardLayout/>}>
           <Route element={<DashboardLayout/>}>
-          <Route path="/" element={<Dashboard />} />
-          <Route path="/products" element={<Products />} />
-          <Route path="/create-product" element={<CreateProduct />} />
-          <Route path="/categories" element={<Categories />} />
-          <Route path="/suppliers" element={<Suppliers />} />
-          <Route path="/create-supplier" element={<CreateSupplier />} />
+            <Route path="/" element={<Dashboard />} />
+            <Route path="/products" element={<Products />} />
+            <Route path="/create-product" element={<CreateProduct />} />
+            <Route path="/categories" element={<Categories />} />
+            <Route path="/suppliers" element={<Suppliers />} />
+            <Route path="/create-supplier" element={<CreateSupplier />} />
+          </Route>
         </Route>
-        </ProtectedRoute>
       </Route>
       <Route path="/login" element={<Login />} />
       <Route path="/register" element={<Register />} />
