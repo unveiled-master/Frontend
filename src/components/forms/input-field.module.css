@@ -15,6 +15,11 @@
   justify-content: space-between;
 }
 
+.inputField label{
+  font-size: 75%;
+  color: #6d6d6db7;
+}
+
 .inputField .input{
   position: relative;
 }

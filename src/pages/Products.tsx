@@ -2,11 +2,10 @@ import { createColumnHelper } from "@tanstack/react-table";
 import type { features } from "../components/features";
 import DataTable from "../components/datatables/dataTable";
 import DataTableHeader from "../components/datatables/dataTableHeader";
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import { useModal } from "../components/contexts/useModal";
 import AddProduct from "../components/modals/addProduct";
-import type { Product } from "../data/data";
-import { Products as products } from "../data/data";
+import { api, type Product } from "../data/data";
 
 
 
@@ -14,10 +13,21 @@ export default function Products () {
 
   const {openModal, closeModal} = useModal();
   const [loading, setLoading] = useState<boolean>(false);
+  const [products, setProducts] = useState<Product[]>([]);
+  
+  useEffect(() => {
+    const fetch = async () => {
+      const ps = await api.get('product');
+      console.log(ps);
+      setProducts(ps.map((product) => ({...product, category: product.category.name, image: "Some-image"})));
+    }
+    fetch();
+  }, [])
 
   const handleSubmit = (e: React.FormEvent<HTMLFormElement>) => {
     e.preventDefault()
     setLoading(true);
+    console.log(new FormData(e.currentTarget));
   }
 
   const openAddProductModal = () => {
@@ -29,23 +39,19 @@ export default function Products () {
   const columnHelper = createColumnHelper<typeof features, Product>();
   const columns = columnHelper.columns([
     columnHelper.accessor(
-      "id", {
-        header: "Id"
+      "name", {
+        header: "name"
     }),
     columnHelper.accessor(
       "sku", {
         header: "sku"
     }),
     columnHelper.accessor(
-      "img", {
+      "image", {
         header: "img",
         cell: (info) => {
           return <img src={info.getValue()} alt="Product Image" height='40px' width='50px'/>
         }
-    }),
-    columnHelper.accessor(
-      "name", {
-        header: "name"
     }),
     columnHelper.accessor(
       "category", {

@@ -21,6 +21,7 @@ import {
 import { useState } from "react";
 import ModalProvider from "../components/contexts/ModalProvider";
 import GlobalModal from "../components/globalModal";
+import { ApiService } from "../services/api.service";
 
 const navigation = [
   {
@@ -77,9 +78,18 @@ const navigation = [
   },
 ];
 
+const service = new ApiService();
+const user = JSON.parse(localStorage.getItem("user")!);
+console.log(user)
+
 function DashboardLayout() {
   const [collapsed, setCollapsed] = useState<boolean>(true)
   const [openMenu, setOpenMenu] = useState<string | null>(null);
+  const [profileMenuIsOpen, setOpen] = useState<boolean>(false);
+
+  const openProfileMenu = () => {
+    setOpen(!profileMenuIsOpen);
+  }
   
 
   const toggleOpenMenu = (value: string) => {
@@ -91,6 +101,8 @@ function DashboardLayout() {
     setCollapsed(!collapsed);
   }
 
+  const user = JSON.parse(localStorage.getItem("user")!);
+
   return (
     <>
       <aside className={`${styles.aside} ${collapsed? styles.collapsed : styles.expand}`}>
@@ -100,7 +112,7 @@ function DashboardLayout() {
         <nav className={styles.uls}>
           {navigation.map(item => {
             return (
-              <ul className={styles.asideNavigation}>
+              <ul className={styles.asideNavigation} key={item.name}>
                 <p className={styles.ulName}>{item.name}</p>
                 {item.links.map(link => {
                   return (
@@ -136,10 +148,10 @@ function DashboardLayout() {
         </nav>
         <ul className={styles.asideFooter}>
           <div className={styles.avatar}>
-            JK
+            {user.name.split(" ")[0][0]}{user.name.split(" ")[1][0]}
           </div>
           <div className={styles.profile}>
-            <p>Joshua Ken</p>
+            <p>{user.name}</p>
             <p>General Management</p>
           </div>
         </ul>
@@ -155,19 +167,26 @@ function DashboardLayout() {
           <div className={styles.mainContent}>
             <header className={styles.mainContentNav}>
               <div className={styles.greeting}>
-                <h1><div>Hello</div> JOSH</h1>
+                <h1><div>Hello </div> {user.name.split(" ")[0]}</h1>
                 <span>General Manager</span>
               </div>
 
               <div className={styles.icon}><Bell/></div>
               <div className={styles.icon}><Settings/></div>
-              <div className={styles.icon}><img src={avatar} alt="" /></div>
+              <div className={`${styles.icon} ${styles.profileImg}`}>
+                <img src={avatar} alt="" onClick={openProfileMenu}/>
+                {profileMenuIsOpen && (
+                  <div className={styles.profileDropDown}>
+                    <button className={styles.signOut} onClick={service.logout}>Sign Out</button>
+                  </div>
+                )}
+              </div>
             </header>
 
             <Outlet/>
           </div>
-          <GlobalModal/>
         </main>
+        <GlobalModal/>
       </ModalProvider>
     </>
   );

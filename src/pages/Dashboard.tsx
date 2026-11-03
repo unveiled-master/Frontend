@@ -13,6 +13,11 @@ import { createColumnHelper } from "@tanstack/react-table";
 import { features } from "../components/features";
 import DataTable from "../components/datatables/dataTable";
 import DataTableHeader from "../components/datatables/dataTableHeader";
+import { ApiService } from "../services/api.service";
+import { useEffect, useState } from "react";
+import axios from "axios";
+import  { type Sale, sales } from "../data/data";
+
 
 const KPIs = [
   {
@@ -48,16 +53,6 @@ const KPIs = [
     theme: "red"
   },
 ]
-
-
-type Sale = {
-  id: string;
-  product: string;
-  customer: string;
-  date: string;
-  amount: number;
-  status: "Completed" | "Pending" | "Cancelled";
-};
 
 const columnHelper = createColumnHelper<typeof features, Sale>();
 
@@ -113,60 +108,48 @@ const columns = columnHelper.columns([
   }),
 ]);
 
-const sales: Sale[] = [
-  {
-    id: "SAL-00124",
-    product: "Wireless Mouse",
-    customer: "John Mensah",
-    date: "2026-10-12",
-    amount: 250,
-    status: "Completed",
-  },
-  {
-    id: "SAL-00123",
-    product: "USB-C Hub",
-    customer: "Ama Owusu",
-    date: "2026-10-12",
-    amount: 420,
-    status: "Pending",
-  },
-  {
-    id: "SAL-00122",
-    product: "Laptop Stand",
-    customer: "Kwame Asare",
-    date: "2026-10-11",
-    amount: 180,
-    status: "Completed",
-  },
-  {
-    id: "SAL-00121",
-    product: "Mechanical Keyboard",
-    customer: "Akosua Boateng",
-    date: "2026-10-11",
-    amount: 650,
-    status: "Cancelled",
-  },
-  {
-    id: "SAL-00120",
-    product: "USB Flash Drive",
-    customer: "Kofi Addo",
-    date: "2026-10-10",
-    amount: 95,
-    status: "Completed",
-  },
-];
+const service = new ApiService();
 
 function Dashboard() {
-  
+  const [data, setData] = useState<unknown>(null);
+
+  // const user = JSON.parse(localStorage.getItem("user")!);
+
+
+  useEffect(() => {
+    const fetchData = async () => {
+      try{
+        const result = await service.post("dashboard", {});
+        setData(result);
+        return result;
+      } catch (error) {
+        if(axios.isAxiosError(error)){
+          console.log(error.response?.data)
+          if(error.response?.status === 401){
+            try{
+              await service.refesh();
+              const result = await service.post("dashboard", {});
+              setData(result);
+            } catch(error) {
+              if(axios.isAxiosError(error)){
+                // console.log(error.response?.data.message)
+              }
+            }
+          }
+        }
+      }
+    };
+
+    fetchData();
+    // console.log(data);
+  }, []);
 
   return (
     <>
     <section className={styles.kpiSection}>
       {
         KPIs.map(kpi => {
-          return <>
-            <KPICard key={kpi.title} theme={kpi.theme} title={kpi.title} icon={kpi.icon} trend={kpi.trend} value={kpi.value} change={kpi.change}/>
-          </>
+          return <KPICard key={kpi.title} theme={kpi.theme} title={kpi.title} icon={kpi.icon} trend={kpi.trend} value={kpi.value} change={kpi.change}/>
         })
       }
     </section>

@@ -1,3 +1,24 @@
+import type { Option } from "../components/forms/input-field";
+import { ApiService } from "../services/api.service";
+
+export const user = JSON.parse(localStorage.getItem("user")!)
+
+export const statusOptions: Option[] = [
+  {id: "ACTIVE", name: "Active"},
+  {id: "INACTIVE", name: "Inctive"},
+]
+
+export const api = new ApiService();
+
+export type Sale = {
+  id: string;
+  product: string;
+  customer: string;
+  date: string;
+  amount: number;
+  status: "Completed" | "Pending" | "Cancelled";
+};
+
 export type Category = {
   id: string;
   name: string;
@@ -8,10 +29,12 @@ export type Category = {
 };
 
 export type Product = {
-  id: string
-  img: string
-  supplier: string
-  category: string
+  // id?: string
+  image: string
+  supplierId: string
+  categoryId: string
+  supplier?: string
+  category?: string
   name: string
   sku: string
   barcode: string
@@ -21,8 +44,8 @@ export type Product = {
   currentStock: number
   reservedStock: number
   minimumStock: number
-  status: "Active" | "Inactive"
-  createdAt: string
+  status: "ACTIVE" | "ACTIVE"
+  createdAt?: string
 }
 
 
@@ -33,7 +56,7 @@ export type Supplier = {
   email: string;
   phone: string;
   address: string;
-  status: "Active" | "Inactive";
+  status: "ACTIVE" | "INACTIVE";
   createdAt: string;
 };
 
@@ -288,4 +311,48 @@ export const Suppliers: Supplier[] = [
   { id: "SUP-8", name: "HomeTech Distributors", contactPerson: "Akosua Frimpong", email: "akosua@hometech.example", phone: "+233 54 555 0108", address: "Koforidua, Ghana", status: "Inactive", createdAt: "2026-06-13" },
   { id: "SUP-9", name: "Mobile Hub Ghana", contactPerson: "Kofi Darko", email: "kofi@mobilehub.example", phone: "+233 59 555 0109", address: "Accra, Ghana", status: "Active", createdAt: "2026-07-09" },
   { id: "SUP-10", name: "Brightline Electronics", contactPerson: "Esi Quartey", email: "esi@brightline.example", phone: "+233 28 555 0110", address: "Tamale, Ghana", status: "Inactive", createdAt: "2026-08-22" },
+];
+
+
+export const sales: Sale[] = [
+  {
+    id: "SAL-00124",
+    product: "Wireless Mouse",
+    customer: "John Mensah",
+    date: "2026-10-12",
+    amount: 250,
+    status: "Completed",
+  },
+  {
+    id: "SAL-00123",
+    product: "USB-C Hub",
+    customer: "Ama Owusu",
+    date: "2026-10-12",
+    amount: 420,
+    status: "Pending",
+  },
+  {
+    id: "SAL-00122",
+    product: "Laptop Stand",
+    customer: "Kwame Asare",
+    date: "2026-10-11",
+    amount: 180,
+    status: "Completed",
+  },
+  {
+    id: "SAL-00121",
+    product: "Mechanical Keyboard",
+    customer: "Akosua Boateng",
+    date: "2026-10-11",
+    amount: 650,
+    status: "Cancelled",
+  },
+  {
+    id: "SAL-00120",
+    product: "USB Flash Drive",
+    customer: "Kofi Addo",
+    date: "2026-10-10",
+    amount: 95,
+    status: "Completed",
+  },
 ];

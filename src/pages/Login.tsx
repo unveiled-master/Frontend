@@ -5,10 +5,10 @@ import Footer from '../components/footer';
 import InputField from '../components/forms/input-field';
 import SubmitButton from '../components/forms/submit-button';
 import { Link, Navigate } from 'react-router-dom';
-import { AuthService } from '../services/auth.service';
+import { ApiService } from '../services/api.service';
 import Icon from '../components/icon';
 
-const auth = new AuthService();
+const auth = new ApiService();
 
 function Login() {
   const [email, setEmail] = useState<string>("");
@@ -20,16 +20,16 @@ function Login() {
   const handleSubmit = async (event: React.FormEvent<HTMLFormElement>) => {
     event.preventDefault();
     setLoading(true);
-    try{
-      const response = await auth.register('login', {email, password});
-      setSubmittedMessage(response.message)
-      if (response.success) {
-        setSubmitted(true)
-        localStorage.setItem("accessToken", response.accessToken)
-      }
-    } catch (error) {
+    
+    const response = await auth.login('auth/login', {email, password});
+    setSubmittedMessage(response.message)
+    if (response.success) {
+      setSubmitted(true);
+      localStorage.setItem("accessToken", response.accessToken);
+      localStorage.setItem("user", JSON.stringify(response.user));
+    } else {
+      alert(submittedMessage)
       setLoading(false);
-      alert(`${submittedMessage}: ` + error)
     }
   }
 

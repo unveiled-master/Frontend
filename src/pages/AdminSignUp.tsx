@@ -5,9 +5,8 @@ import Footer from '../components/footer';
 import InputField from '../components/forms/input-field';
 import SubmitButton from '../components/forms/submit-button';
 import { useParams, useSearchParams } from 'react-router-dom';
-import { AuthService } from '../services/auth.service';
+import { api } from '../data/data';
 
-const auth = new AuthService();
 
 function AdminSignUp() {
   const [firstName, setFirstName] = useState<string>("");
@@ -36,11 +35,11 @@ function AdminSignUp() {
       email,
     }
     try{
-      const response = await auth.register('create-admin/'+token, formData);
+      const response = await api.post('auth/create-admin/'+token, formData);
       console.log(response);
       setLoading(false);
 
-      if (response.success) {
+      if (response.data.success) {
         setSubmitted(true);
         setSubmittedMessage("Check your email to set up your password");
       } else {
@@ -59,7 +58,7 @@ function AdminSignUp() {
     
     const validateToken = async () => {
       try {
-        const response = await auth.validateEmail(token);
+        const response = await api.validateEmail(token);
         
         if (response.valid === false) {
           setError(response.message);

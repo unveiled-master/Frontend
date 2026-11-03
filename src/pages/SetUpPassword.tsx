@@ -5,9 +5,8 @@ import Footer from '../components/footer';
 import InputField from '../components/forms/input-field';
 import SubmitButton from '../components/forms/submit-button';
 import { useParams, useSearchParams } from 'react-router-dom';
-import { AuthService } from '../services/auth.service';
+import { api } from '../data/data';
 
-const auth = new AuthService();
 
 function SetUpPassword() {
   const [confirmPassword, setConfirmPassword] = useState<string>("password");
@@ -24,9 +23,9 @@ function SetUpPassword() {
     event.preventDefault();
     try{
       setSubmitted(true);
-      const response = await auth.register("set-password/"+token, {password:password, confirmPassword:password});
-      setSubmittedMessage(response.message);
-      if(response.success){
+      const response = await api.post("auth/set-password/"+token, {password:password, confirmPassword:password});
+      setSubmittedMessage(response.data.message);
+      if(response.data.success){
         return;
       }
 

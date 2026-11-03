@@ -67,7 +67,7 @@ export default function DataTable<TData extends RowData>({data, columns} : DataT
                 className={styles.empty}
                 colSpan={columns.length}
               >
-                No recent sales found.
+                No data found.
               </td>
             </tr>
           )}

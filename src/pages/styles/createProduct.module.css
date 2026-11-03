@@ -83,3 +83,7 @@
   flex-flow: column nowrap;
   gap: 0.5rem;
 }
+
+.previewImage {
+  width: 100%;
+}

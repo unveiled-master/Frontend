@@ -5,9 +5,11 @@ import Footer from '../components/footer';
 import InputField from '../components/forms/input-field';
 import SubmitButton from '../components/forms/submit-button';
 import { Link } from 'react-router-dom';
-import { AuthService } from '../services/auth.service';
+import { ApiService } from '../services/api.service';
+import axios from 'axios';
+import Icon from '../components/icon';
 
-const authService = new AuthService();
+const api = new ApiService();
 
 function Register() {
   const [email, setEmail] = useState<string>("");
@@ -22,17 +24,25 @@ function Register() {
     event.preventDefault();
     setLoading(true)
     const formData = {
-      name: name,
-      email: email,
+      name,
+      email,
       address: location,
     }
 
-    const response = await authService.register("register", formData);
-    console.log(response);
-    setLoading(false);
-    setSubmitted(true);
-    setSubmittedMessage(response.message)
-    return response;
+    try {
+      const response = await api.post("auth/register", formData);
+      console.log(response);
+      setLoading(false);
+      setSubmitted(true);
+      setSubmittedMessage(response.data.message + `Check ${email} for the email verification.`);
+      return response;
+    } catch (error) {
+      if(axios.isAxiosError(error)) {
+        setLoading(false);
+        setSubmitted(false);
+        alert("Registeration failed");
+      }
+    }
   }
 
   if(submitted) {
@@ -48,13 +58,8 @@ function Register() {
     <main className={styles.main}>
       <div className={styles.content}>
         <form onSubmit={handleSubmit}>
-          <div className={styles.iconBg}>
-            <div className={styles.icon}>
-              <div className={styles.iconContainer}>
-                <Archive/>
-              </div>
-            </div>
-          </div>
+          
+          <Icon icon={Archive}/>
           <h4>ProdUp Inventory and Sales</h4>
           <p className={styles.medium}>Register your Company</p>
 
@@ -108,4 +113,4 @@ function Register() {
   )
 }
 
-export default Register
+export default Register;

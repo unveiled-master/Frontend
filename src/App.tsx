@@ -13,6 +13,8 @@ import Suppliers from "./pages/Suppliers";
 import CreateSupplier from "./pages/CreateSupplier";
 import ProtectedRoute from "./ProtectedRoute";
 import NonProtectedRoute from "./NonProtectedRoute";
+import SalesRecord from "./pages/SalesRecord";
+import MakeSale from "./pages/MakeSale";
 
 function App() {
   return (
@@ -26,7 +28,10 @@ function App() {
           <Route path="/categories" element={<Categories />} />
           <Route path="/suppliers" element={<Suppliers />} />
           <Route path="/create-supplier" element={<CreateSupplier />} />
+          <Route path="/sales" element={<SalesRecord />} />
         </Route>
+        
+        <Route path="/make-sale" element={<MakeSale />} />
       </Route>
       <Route element={<NonProtectedRoute/>}>
         <Route path="/login" element={<Login />} />

@@ -81,17 +81,20 @@ export default function InputField({
             placeholder={placeholder}
             required={required}
             readOnly={readonly}
+            defaultValue={value}
           >
-              {value}
+            
           </textarea>
           
             :
           type === "select"
             ?
           <select name={name} id={name} value={value} required={required} onChange={(e) => onSelectChanged?.(e.target.value)}>
-            <option value="">Select {label?.toLowerCase() ?? "an option"}</option>
+            <option value="">
+              -- Select {label?.toLowerCase() ?? "an option"} --
+            </option>
             {options?.map(choice => {
-              return <option value={choice.name} id={choice.id} key={choice.id}>{choice.name}</option>
+              return <option value={choice.id} id={choice.id} key={choice.id}>{choice.name}</option>
             })}
           </select>
             :
@@ -113,6 +116,7 @@ export default function InputField({
           accept={type === "file"? accept : ""}
           onChange={(e) => onFieldChanged(e.target.value)}
           name={name}
+          min={0}
         />
         }
 
