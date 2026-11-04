@@ -49,8 +49,9 @@ export default function CreateSupplier () {
       if(axios.isAxiosError(error)){
         setSuccessMessage(error.response?.data.message);
         return;
+      } else if (error instanceof Error) {
+        setSuccessMessage(error.message);
       }
-      setSuccessMessage(error.message);
     }
   }
 

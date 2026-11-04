@@ -32,8 +32,10 @@ export default function CreateProduct() {
     try{
       const cs = await api.get('category');
       setCategories([...cs]);
-    } catch (error) {
-      console.log(error.message);
+    } catch (error: unknown) {
+      if(error instanceof Error) {
+        console.log(error.message);
+      }
     }
   }
   const getSuppliers = async () => {
@@ -41,7 +43,9 @@ export default function CreateProduct() {
       const ss = await api.get('supplier');
       setSuppliers([...ss]);
     } catch (error) {
-      console.log(error.message);
+      if(error instanceof Error) {
+        console.log(error.message);
+      }
     }
   }
 
@@ -71,8 +75,11 @@ export default function CreateProduct() {
       setSuccessMessage(`Product: ${product.name}, Created Successfully`)
       event.currentTarget.reset();
     } catch(error){
-      setSuccess(false);
-      setSuccessMessage(`Product: ${form.name}, could not be created`);
+      if(error instanceof Error) {
+        console.log(error.message);
+        setSuccess(false);
+        setSuccessMessage(`Product: ${form.name}, could not be created`);
+      }
     }
     window.scrollTo({
       top: 0,
