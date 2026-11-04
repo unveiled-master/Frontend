@@ -62,7 +62,7 @@ function SetUpPassword() {
             icon={Factory}
             type="text"
             placeholder="Company Name"
-            value={companyName}
+            value={companyName!}
             onFieldChanged={()=> {}}
             required
             readonly//={true}
@@ -73,7 +73,7 @@ function SetUpPassword() {
             icon={Factory}
             type="text"
             placeholder="Admin Name"
-            value={userName}
+            value={userName!}
             onFieldChanged={()=> {}}
             required
             readonly//={true}
