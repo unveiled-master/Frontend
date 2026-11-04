@@ -3,7 +3,7 @@ import styles from "./styles/addCategory.module.css";
 import InputField from "../forms/input-field";
 import { useState, type SubmitEventHandler } from "react";
 import Loading from "../forms/loading";
-import { Categories, type Category } from "../../data/data";
+import { type Category } from "../../data/data";
 
 type props = {
   closeModal: () => void,
@@ -17,7 +17,7 @@ export default function AddProduct ({closeModal, handleSubmit, loading}: props) 
   const [description, setDescription] = useState<string>("");
   const [image, setImage] = useState<File | null>(null);
 
-  const categories: Category[] = [...Categories];
+  const categories: Category[] = [];
 
   return (
     <>

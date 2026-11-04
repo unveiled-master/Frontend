@@ -19,7 +19,7 @@ export default function Products () {
     const fetch = async () => {
       const ps = await api.get('product');
       console.log(ps);
-      setProducts(ps.map((product) => ({...product, category: product.category.name, image: "Some-image"})));
+      setProducts(ps.map((product: Product) => ({...product, category: product.category, image: "Some-image"})));
     }
     fetch();
   }, [])

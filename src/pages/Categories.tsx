@@ -35,8 +35,8 @@ const columns = columnHelper.columns([
     cell: (info) => {
       const status = info.getValue();
       const statusClass = {
-        Active: styles.active,
-        Inactive: styles.inactive,
+        ACTIVE: styles.active,
+        INACTIVE: styles.inactive,
       }[status]
       return <span className={`${styles.status} ${statusClass}`}>{status}</span>
     }

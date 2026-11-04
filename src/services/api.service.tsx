@@ -123,8 +123,9 @@ export class ApiService {
           if(axios.isAxiosError(error)) {
             console.log(error.response)
             throw error;
+          }else if(error instanceof Error) {
+            console.log(error.message)
           }
-          console.log(error.response?.message ?? error.message);
           throw error;
         }
       }

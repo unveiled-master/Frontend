@@ -11,7 +11,7 @@ type props = {
   closeModal: () => void,
   setSuccess: (value: boolean | null) => void,
   setMessage: (value: string) => void,
-  setCategory: (categories: Category[]) => void,
+  setCategory: (categories: Category[] |( (current: Category[]) => Category[])) => void,
   // handleSubmit?: SubmitEventHandler<HTMLFormElement>,
   // loading: boolean,
 }
@@ -48,7 +48,7 @@ export default function AddCategory ({closeModal, setSuccess, setMessage, setCat
       setMessage(`${category.name} Category Added`)
       setLoading(false);
       setSuccess(true);
-      setCategory((current) => [...current, category]);
+      setCategory((current: Category[])  => [...current]);
       closeModal();
     } catch (error) {
       if(axios.isAxiosError(error)) {
