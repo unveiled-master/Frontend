@@ -15,6 +15,7 @@ import ProtectedRoute from "./ProtectedRoute";
 import NonProtectedRoute from "./NonProtectedRoute";
 import SalesRecord from "./pages/SalesRecord";
 import MakeSale from "./pages/MakeSale";
+import LandingPage from "./landing/LandingPage";
 
 function App() {
   return (
@@ -22,7 +23,7 @@ function App() {
       
       <Route element={<ProtectedRoute/>}>
         <Route element={<DashboardLayout/>}>
-          <Route path="/" element={<Dashboard />} />
+          <Route path="/dashboard" element={<Dashboard />} />
           <Route path="/products" element={<Products />} />
           <Route path="/create-product" element={<CreateProduct />} />
           <Route path="/categories" element={<Categories />} />
@@ -33,6 +34,7 @@ function App() {
         
         <Route path="/make-sale" element={<MakeSale />} />
       </Route>
+      <Route path="/" element={<LandingPage />} />
       <Route element={<NonProtectedRoute/>}>
         <Route path="/login" element={<Login />} />
         <Route path="/register" element={<Register />} />
