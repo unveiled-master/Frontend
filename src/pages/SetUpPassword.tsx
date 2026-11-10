@@ -6,6 +6,7 @@ import InputField from '../components/forms/input-field';
 import SubmitButton from '../components/forms/submit-button';
 import { useParams, useSearchParams } from 'react-router-dom';
 import { api } from '../data/data';
+import Icon from '../components/icon';
 
 
 function SetUpPassword() {
@@ -50,13 +51,7 @@ function SetUpPassword() {
     <main className={styles.main}>
       <div className={styles.content}>
         <form onSubmit={handleSubmit}>
-          <div className={styles.iconBg}>
-            <div className={styles.icon}>
-              <div className={styles.iconContainer}>
-                <Archive/>
-              </div>
-            </div>
-          </div>
+          <Icon icon={Archive}/>
 
           <div className={styles.divider}>
             
