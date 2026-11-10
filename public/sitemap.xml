@@ -3,4 +3,34 @@
   <url>
     <loc>https://produp.online/</loc>
   </url>
+  <url>
+    <loc>https://produp.online/login</loc>
+  </url>
+  <url>
+    <loc>https://produp.online/register</loc>
+  </url>
+  <url>
+    <loc>https://produp.online/dashboard</loc>
+  </url>
+  <url>
+    <loc>https://produp.online/products</loc>
+  </url>
+  <url>
+    <loc>https://produp.online/create-product</loc>
+  </url>
+  <url>
+    <loc>https://produp.online/categories</loc>
+  </url>
+  <url>
+    <loc>https://produp.online/suppliers</loc>
+  </url>
+  <url>
+    <loc>https://produp.online/create-supplier</loc>
+  </url>
+  <url>
+    <loc>https://produp.online/sales</loc>
+  </url>
+  <url>
+    <loc>https://produp.online/make-sale</loc>
+  </url>
 </urlset>

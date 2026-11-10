@@ -235,6 +235,8 @@
   .recordRow b { font-size: 6px; }
   .heroBottom { bottom: 15px; font-size: 7px; }
   .heroBottom a { font-size: 7px; }
+  
+  .heroBottom { position: static; bottom: 20px; display: flex; flex-flow: column nowrap; gap: 10px; color: #929b95; font-size: 8px; }
   .challenge { padding: 55px 0; }
   .challengeGrid { width: calc(100% - 36px); grid-template-columns: 1fr; gap: 9px; }
   .sectionIntro { margin-bottom: 23px; }
