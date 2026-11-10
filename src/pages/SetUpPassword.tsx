@@ -26,6 +26,7 @@ function SetUpPassword() {
       const response = await api.post("auth/set-password/"+token, {password:password, confirmPassword:password});
       setSubmittedMessage(response.data.message);
       if(response.data.success){
+        location.href = '/login';
         return;
       }
 
@@ -38,6 +39,7 @@ function SetUpPassword() {
       setSubmitted(false);
     }
   }
+
   const passwordValid = confirmPassword.length >= 8 && password.length >= 8;
   const passwordsMatch = password === confirmPassword && passwordValid;
 
