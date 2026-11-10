@@ -24,6 +24,7 @@ function SetUpPassword() {
     try{
       setSubmitted(true);
       const response = await api.post("auth/set-password/"+token, {password:password, confirmPassword:password});
+      console.log(response);
       setSubmittedMessage(response.data.message);
       if(response.data.success){
         location.href = '/login';
