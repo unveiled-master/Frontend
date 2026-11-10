@@ -83,7 +83,9 @@ export default function LandingPage() {
             <DashboardPreview />
             <div className={styles.visualFoot}><span>Designed around the everyday</span><span>Workspace preview</span></div>
           </div>
-          <div className={styles.heroBottom}><span>01</span><i /><span>Products · Inventory · Sales</span><a href="#the-challenge">Discover the approach <ArrowDown size={13} /></a></div>
+          <div className={styles.heroBottom}>
+            <div> <span>01</span><i /><span>Products · Inventory · Sales</span> </div>
+            <a href="#the-challenge">Discover the approach <ArrowDown size={13} /></a></div>
         </section>
 
         <section className={styles.challenge} id="the-challenge">
