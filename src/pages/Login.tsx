@@ -35,7 +35,7 @@ function Login() {
 
   if(submitted) {
     alert(submittedMessage);
-    return <Navigate to="/"/>
+    return <Navigate to="/dashboard"/>
   }
 
   return (
