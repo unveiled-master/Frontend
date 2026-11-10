@@ -1,1 +1,1 @@
-export const HOST = import.meta.env.Vite_BACKEND_URL;
+export const HOST = import.meta.env.VITE_BACKEND_HOST;
