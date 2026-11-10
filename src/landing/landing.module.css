@@ -51,7 +51,7 @@
 .visualLabel span { width: 6px; height: 6px; border-radius: 50%; background: #72a875; }
 .visualFoot { display: flex; justify-content: space-between; position: relative; z-index: 1; margin: 10px 7px 0; color: #949d96; font-size: 7px; }
 .heroBottom { position: absolute; left: 0; right: 0; bottom: 20px; display: flex; align-items: center; gap: 10px; color: #929b95; font-size: 8px; }
-.heroBottom span:first-child { color: #527659; font-weight: 700; }
+.heroBottom div  span:first-child { color: #527659; font-weight: 700; }
 .heroBottom i { width: 34px; height: 1px; background: #d8e0d8; }
 .heroBottom a { margin-left: auto; display: inline-flex; align-items: center; gap: 6px; color: #617267; }
 .heroBottom div{
