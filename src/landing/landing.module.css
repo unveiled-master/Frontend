@@ -7,10 +7,10 @@
   --ink: #1c2c27;
   --muted: #77827c;
   --line: #e3e7e1;
-  width: calc(100% + 16px);
+  width: 100%;
   min-height: 100vh;
-  margin: -8px;
-  overflow: hidden;
+  min-height: 100svh;
+  overflow-x: clip;
   color: var(--ink);
   background: #fff;
   font: 14px/1.5 'DM Sans', sans-serif;
@@ -19,29 +19,29 @@
 .page * { box-sizing: border-box; }
 .page a { color: inherit; text-decoration: none; }
 .page button { font: inherit; }
-.header, .hero, .sectionIntro, .platform, .businesses, .how, .pricing, .faq, .footerTop, .footerBottom { width: min(1120px, calc(100% - 64px)); margin-inline: auto; }
+.header, .hero, .sectionIntro, .platform, .businesses, .how, .pricing, .faq, .footerTop, .footerBottom { width: min(1240px, calc(100% - 80px)); margin-inline: auto; }
 .header { height: 76px; display: flex; align-items: center; justify-content: space-between; border-bottom: 1px solid #edf0ec; position: relative; z-index: 5; }
 .brand { display: inline-flex; align-items: center; gap: 9px; font: 700 17px/1 'DM Sans', sans-serif; letter-spacing: -.6px; }
 .brand > span:last-child { position: relative; }
 .brand small { display: block; margin-top: 5px; color: #849088; font: 600 6px/1 'DM Sans', sans-serif; letter-spacing: 1.25px; }
 .brandIcon { display: grid; place-items: center; width: 32px; height: 32px; color: white; background: var(--forest); border-radius: 8px; }
-.nav { flex: 1; margin-left: 80px; display: flex; align-items: center; gap: 26px; color: #68746d; font-size: 10px; }
+.nav { flex: 1; margin-left: 64px; display: flex; align-items: center; gap: 24px; color: #68746d; font-size: 14px; }
 .nav a { transition: color .2s ease; }
 .nav a:hover, .footerColumn a:hover { color: #33805a; }
 .navGap { flex: 1; }
-.navCta, .buttonPrimary { display: inline-flex; align-items: center; justify-content: center; gap: 9px; color: white !important; background: var(--forest); padding: 11px 15px; border-radius: 5px; font-size: 10px; font-weight: 700; transition: background .2s, transform .2s; }
+.navCta, .buttonPrimary { display: inline-flex; align-items: center; justify-content: center; gap: 9px; color: white !important; background: var(--forest); padding: 12px 18px; border-radius: 5px; font-size: 14px; font-weight: 700; transition: background .2s, transform .2s; }
 .navCta:hover, .buttonPrimary:hover { background: #256247; transform: translateY(-1px); }
 .menuToggle { display: none; }
 
-.hero { min-height: 566px; padding: 75px 0 57px; display: grid; grid-template-columns: .9fr 1.1fr; align-items: center; gap: 48px; position: relative; }
+.hero { min-height: min(680px, calc(100svh - 76px)); padding: 80px 0 70px; display: grid; grid-template-columns: .9fr 1.1fr; align-items: center; gap: 48px; position: relative; }
 .heroCopy { padding-bottom: 14px; }
-.eyebrow, .sectionTag { display: inline-flex; align-items: center; gap: 8px; color: #728078; font-size: 8px; font-weight: 700; letter-spacing: 1.35px; }
+.eyebrow, .sectionTag { display: inline-flex; align-items: center; gap: 8px; color: #728078; font-size: 11px; font-weight: 700; letter-spacing: 1.2px; }
 .eyebrow > span { width: 7px; height: 7px; border-radius: 50%; background: #79a775; box-shadow: 0 0 0 4px #e9f1e7; }
 .hero h1 { margin: 22px 0 17px; color: var(--forest-deep); font: 500 clamp(40px, 5vw, 59px)/1.12 'Playfair Display', Georgia, serif; letter-spacing: -1.6px; }
 .hero h1 em, .sectionIntro h2 em, .businessIntro h2 em, .how h2 em, .pricing h2 em, .faqIntro h2 em, .finalCta h2 em { color: #507d59; font-weight: 500; }
-.heroCopy > p, .businessIntro > p { max-width: 410px; color: var(--muted); font-size: 12px; line-height: 1.85; }
+.heroCopy > p, .businessIntro > p { max-width: 460px; color: var(--muted); font-size: 16px; line-height: 1.75; }
 .heroActions { display: flex; align-items: center; gap: 22px; margin-top: 25px; }
-.heroLink, .inlineLink { display: inline-flex; align-items: center; gap: 8px; color: #52665a; font-size: 10px; font-weight: 600; }
+.heroLink, .inlineLink { display: inline-flex; align-items: center; gap: 8px; color: #52665a; font-size: 14px; font-weight: 600; }
 .heroLink:hover, .inlineLink:hover { color: #2a754e; }
 .heroNote { margin-top: 33px; display: flex; align-items: center; gap: 9px; color: #7e8982; font-size: 9px; }
 .noteMark { width: 22px; height: 22px; display: grid; place-items: center; color: #347450; background: #e9f2e9; border-radius: 50%; }
@@ -273,4 +273,13 @@
 
 @media (prefers-reduced-motion: reduce) {
   .page * { scroll-behavior: auto !important; transition: none !important; }
+}
+
+/* Keep supporting copy comfortably readable at normal browser zoom. */
+.page :is(a, button, p, li, small, b, span, i) {
+  font-size: max(12px, .85em);
+}
+
+.page :is(.nav, .heroLink, .inlineLink, .featureCard h3, .featureCard p, .sectorCard h3, .sectorCard p, .stepCard h3, .stepCard p, .pricingText > p, .pricingAside span, .pricingAside small, .faqItem > button > span, .faqItem > p, .footerColumn b, .footerColumn a, .footerColumn span, .footerBottom) {
+  font-size: max(12px, .85em);
 }

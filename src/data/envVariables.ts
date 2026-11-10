@@ -1,0 +1,1 @@
+export const HOST = import.meta.env.Vite_BACKEND_URL;

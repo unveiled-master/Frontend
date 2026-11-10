@@ -1,7 +1,8 @@
 import axios from "axios";
+import "dot-env";
 import { Navigate } from "react-router-dom";
+import { HOST } from "../data/envVariables";
 
-const HOST = "http://localhost:5050/api/v1/"
 let accessToken: string = localStorage.getItem("accessToken") || "";
 
 export class ApiService {

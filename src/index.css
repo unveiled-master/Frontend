@@ -1,4 +1,15 @@
-body{
+html {
+  min-width: 320px;
+  scroll-behavior: smooth;
+}
+
+body {
+  min-width: 320px;
+  min-height: 100vh;
+  margin: 0;
   font-family: "Geist", sans-serif;
-  /* height: 100dvh; */
+}
+
+#root {
+  min-height: 100vh;
 }
