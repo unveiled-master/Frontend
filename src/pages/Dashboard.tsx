@@ -13,9 +13,9 @@ import { createColumnHelper } from "@tanstack/react-table";
 import { features } from "../components/features";
 import DataTable from "../components/datatables/dataTable";
 import DataTableHeader from "../components/datatables/dataTableHeader";
-import { ApiService } from "../services/api.service";
-import { useEffect, useState } from "react";
-import axios from "axios";
+// import { ApiService } from "../services/api.service";
+// import { useEffect, useState } from "react";
+// import axios from "axios";
 import  { type Sale, sales } from "../data/data";
 
 
@@ -108,41 +108,40 @@ const columns = columnHelper.columns([
   }),
 ]);
 
-const service = new ApiService();
+// const service = new ApiService();
 
 function Dashboard() {
-  const [data, setData] = useState<unknown>(null);
+  // const [data, setData] = useState<unknown>(null);
 
   // const user = JSON.parse(localStorage.getItem("user")!);
 
 
-  useEffect(() => {
-    const fetchData = async () => {
-      try{
-        const result = await service.post("dashboard", {});
-        setData(result);
-        return result;
-      } catch (error) {
-        if(axios.isAxiosError(error)){
-          console.log(error.response?.data)
-          if(error.response?.status === 401){
-            try{
-              await service.refesh();
-              const result = await service.post("dashboard", {});
-              setData(result);
-            } catch(error) {
-              if(axios.isAxiosError(error)){
-                // console.log(error.response?.data.message)
-              }
-            }
-          }
-        }
-      }
-    };
+  // useEffect(() => {
+  //   const fetchData = async () => {
+  //     try{
+  //       const result = await service.post("dashboard", {});
+  //       setData(result);
+  //       return result;
+  //     } catch (error) {
+  //       if(axios.isAxiosError(error)){
+  //         console.log(error.response?.data)
+  //         if(error.response?.status === 401){
+  //           try{
+  //             await service.refesh();
+  //             const result = await service.post("dashboard", {});
+  //             setData(result);
+  //           } catch(error) {
+  //             if(axios.isAxiosError(error)){
+  //               // console.log(error.response?.data.message)
+  //             }
+  //           }
+  //         }
+  //       }
+  //     }
+  //   };
 
-    fetchData();
-    console.log(data);
-  }, [data]);
+  //   fetchData();
+  // }, []);
 
   return (
     <>
