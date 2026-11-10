@@ -73,25 +73,29 @@ body{
 .companyName{
   white-space: nowrap;
 }
-.aside:hover{
-  width: 350px;
-}
 
-.aside:hover .companyName,
-.aside:hover ul p.ulName,
-.aside:hover ul a p,
-.aside:hover .asideFooter .profile,
-.aside:hover a .dropDownIcon,
-.aside:hover .subMenu
-{
-  display: flex;
-}
+@media (min-width: 800px) {
+  
+  .aside:hover{
+    width: 350px;
+  }
 
-.aside:hover ul a,
-.aside:hover .asideFooter{
-  justify-content: flex-start;
-}
+  .aside:hover .companyName,
+  .aside:hover ul p.ulName,
+  .aside:hover ul a p,
+  .aside:hover .asideFooter .profile,
+  .aside:hover a .dropDownIcon,
+  .aside:hover .subMenu
+  {
+    display: flex;
+  }
 
+  .aside:hover ul a,
+  .aside:hover .asideFooter{
+    justify-content: flex-start;
+  }
+
+}
 .aside p{
   white-space: nowrap;
 }
@@ -382,9 +386,17 @@ body{
 
 }
 
+.hamIcon{display: none;}
 @media (max-width: 600px) {
+  .hamIcon{display: block;}
+  .aside:not(.expand) {display: none;}
+
+  .greeting span{
+    display: none;
+  }
   .aside{
     margin: 0;
+    border-radius: 0;
   }
 
   .aside .companyName,

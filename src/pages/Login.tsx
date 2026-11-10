@@ -20,17 +20,23 @@ function Login() {
   const handleSubmit = async (event: React.FormEvent<HTMLFormElement>) => {
     event.preventDefault();
     setLoading(true);
-    
-    const response = await auth.login('auth/login', {email, password});
-    setSubmittedMessage(response.message)
-    if (response.success) {
-      setSubmitted(true);
-      localStorage.setItem("accessToken", response.accessToken);
-      localStorage.setItem("user", JSON.stringify(response.user));
-    } else {
-      alert(submittedMessage)
+    try{
+      const response = await auth.login('auth/login', {email, password});
+      setSubmittedMessage(response.message)
+      if (response.success) {
+        setSubmitted(true);
+        localStorage.setItem("accessToken", response.accessToken);
+        localStorage.setItem("user", JSON.stringify(response.user));
+      } else {
+        alert(submittedMessage)
+        setLoading(false);
+      }
+    } catch(error: unknown){
+      alert(error);
+      console.error(error)
       setLoading(false);
     }
+    
   }
 
   if(submitted) {

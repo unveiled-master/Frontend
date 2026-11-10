@@ -17,6 +17,7 @@ import {
   ChevronRightIcon,
   Bell,
   LineDotRightHorizontal,
+  Menu,
 } from "lucide-react";
 import { useState } from "react";
 import ModalProvider from "../components/contexts/ModalProvider";
@@ -27,7 +28,7 @@ const navigation = [
   {
     name: "Work Space",
     links: [
-      { name: "Dashboard", link: "/", icon: LayoutDashboard },
+      { name: "Dashboard", link: "/dashboard", icon: LayoutDashboard },
       { name: "Sales",
         link: "/sales",
         icon: ShoppingCart,
@@ -119,7 +120,7 @@ function DashboardLayout() {
                   <li key={link.name}>
             
                     <div>
-                      <NavLink className={({ isActive }) => (isActive ? styles.active : "")} to={link.options? "sadscsa": link.link} onClick={link.options? (e) => {e.preventDefault(); toggleOpenMenu(link.name)} : undefined}>
+                      <NavLink className={({ isActive }) => (isActive ? styles.active : "")} to={link.options? "sadscsa": link.link} onClick={link.options? (e) => {e.preventDefault(); toggleOpenMenu(link.name); } : () => {setCollapsed(true)}}>
                         <link.icon/> <p>{link.name}</p> {link.options?<ChevronRightIcon  
                         className={`${styles.dropDownIcon} ${openMenu === link.name ? styles.isOpen : ""}`}/> : ""}
                       </NavLink>
@@ -128,7 +129,7 @@ function DashboardLayout() {
                         {
                           link.options.map(option => {
                             return (
-                              <NavLink key={option.title} className={({ isActive }) => (isActive ? styles.active : "")} to={option.link}>
+                              <NavLink key={option.title} className={({ isActive }) => (isActive ? styles.active : "")} to={option.link} onClick={() => {setCollapsed(true)}}>
                                 <LineDotRightHorizontal/> <p>{option.title}</p>
                               </NavLink>
                             )
@@ -166,6 +167,9 @@ function DashboardLayout() {
         
           <div className={styles.mainContent}>
             <header className={styles.mainContentNav}>
+              <span className={styles.hamIcon} onClick={() => {setCollapsed(!collapsed)}}>
+                <Menu/>
+              </span>
               <div className={styles.greeting}>
                 <h1><div>Hello </div> {user.name.split(" ")[0]}</h1>
                 <span>General Manager</span>
