@@ -1,0 +1,14 @@
+User-agent: *
+Allow: /
+Disallow: /dashboard
+Disallow: /products
+Disallow: /create-product
+Disallow: /categories
+Disallow: /suppliers
+Disallow: /create-supplier
+Disallow: /sales
+Disallow: /make-sale
+Disallow: /set-up-admin-account/
+Disallow: /set-password/
+
+Sitemap: https://produp.online/sitemap.xml
