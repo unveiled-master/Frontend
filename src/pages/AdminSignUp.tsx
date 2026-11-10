@@ -153,7 +153,7 @@ function AdminSignUp() {
         </form>
       </div>
     </main>
-    <Footer />
+    
     </>
   )
 }

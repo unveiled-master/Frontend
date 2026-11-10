@@ -108,7 +108,7 @@ function Register() {
         </form>
       </div>
     </main>
-    <Footer />
+    
     </>
   )
 }

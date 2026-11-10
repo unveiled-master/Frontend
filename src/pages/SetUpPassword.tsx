@@ -108,7 +108,7 @@ function SetUpPassword() {
         </form>
       </div>
     </main>
-    <Footer />
+    
     </>
   )
 }
