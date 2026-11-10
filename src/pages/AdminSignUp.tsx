@@ -1,7 +1,7 @@
 import { Mail, Archive, User2, Factory } from 'lucide-react';
 import styles from './styles/login.module.css';
 import { useEffect, useState } from 'react';
-import Footer from '../components/footer';
+
 import InputField from '../components/forms/input-field';
 import SubmitButton from '../components/forms/submit-button';
 import { useParams, useSearchParams } from 'react-router-dom';
