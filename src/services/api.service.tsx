@@ -6,9 +6,6 @@ import { HOST } from "../data/envVariables";
 let accessToken: string = localStorage.getItem("accessToken") || "";
 
 export class ApiService {
-  constructor() {
-    console.log(HOST)
-  }
   async get(url: string){
     accessToken = localStorage.getItem("accessToken") || "";
 
@@ -88,6 +85,7 @@ export class ApiService {
   }
 
   async post(url: string, data: object) {
+    console.log(HOST);
 
     try {
       const response = await axios.post(
