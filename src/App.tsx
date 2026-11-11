@@ -34,13 +34,15 @@ function App() {
         
         <Route path="/make-sale" element={<MakeSale />} />
       </Route>
-      <Route path="/" element={<LandingPage />} />
+
       <Route element={<NonProtectedRoute/>}>
         <Route path="/login" element={<Login />} />
         <Route path="/register" element={<Register />} />
-        <Route path="/set-up-admin-account/:token" element={<AdminSignUp />} />
-        <Route path="/set-password/:token" element={<SetUpPassword />} />
       </Route>
+      
+      <Route path="/" element={<LandingPage />} />
+      <Route path="/set-up-admin-account/:token" element={<AdminSignUp />} />
+      <Route path="/set-password/:token" element={<SetUpPassword />} />
     </Routes>
   );
 }
