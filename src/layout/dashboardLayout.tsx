@@ -65,8 +65,24 @@ const navigation = [
   {
     name: "Management",
     links: [
-      { name: "Customers", link: "/customers", icon: Users },
-      { name: "Suppliers", link: "/suppliers", icon: Truck },
+      {
+        name: "Customers",
+        link: "/customers",
+        icon: Users,
+        options: [
+          { title: "Add Customer", link: "/create-customer" },
+          { title: "Manage Customers", link: "/customers" },
+        ],
+      },
+      {
+        name: "Suppliers",
+        link: "/suppliers",
+        icon: Truck,
+        options: [
+          { title: "Add Supplier", link: "/create-supplier" },
+          { title: "Manage Suppliers", link: "/suppliers" },
+        ],
+      },
       { name: "Reports", link: "/reports", icon: ChartNoAxesCombined },
     ],
   },

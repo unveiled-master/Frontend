@@ -15,6 +15,11 @@ import ProtectedRoute from "./ProtectedRoute";
 import NonProtectedRoute from "./NonProtectedRoute";
 import SalesRecord from "./pages/SalesRecord";
 import MakeSale from "./pages/MakeSale";
+import Inventory from "./pages/Inventory";
+import Customers from "./pages/Customers";
+import CreateCustomer from "./pages/CreateCustomer";
+import Reports from "./pages/Reports";
+import SettingsPage from "./pages/Settings";
 import LandingPage from "./landing/LandingPage";
 
 function App() {
@@ -30,6 +35,11 @@ function App() {
           <Route path="/suppliers" element={<Suppliers />} />
           <Route path="/create-supplier" element={<CreateSupplier />} />
           <Route path="/sales" element={<SalesRecord />} />
+          <Route path="/inventory" element={<Inventory />} />
+          <Route path="/customers" element={<Customers />} />
+          <Route path="/create-customer" element={<CreateCustomer />} />
+          <Route path="/reports" element={<Reports />} />
+          <Route path="/settings" element={<SettingsPage />} />
         </Route>
         
         <Route path="/make-sale" element={<MakeSale />} />

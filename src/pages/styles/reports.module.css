@@ -1,0 +1,75 @@
+.page { --ink: #17251f; --muted: #75827b; --line: #e7ece9; --green: #176b4c; width: 100%; min-width: 0; padding: .4rem 0 1.5rem; color: var(--ink); }
+.heading { display: flex; align-items: end; justify-content: space-between; gap: 1rem; margin: .35rem 0 1.35rem; }
+.eyebrow { margin-bottom: .4rem; color: #71877c; font-size: .67rem; font-weight: 700; letter-spacing: .13em; }
+.heading h1 { color: #16251d; font-family: "Manrope", "DM Sans", sans-serif; font-size: 1.65rem; font-weight: 800; letter-spacing: -.04em; }
+.subtitle { margin-top: .35rem; color: var(--muted); font-size: .82rem; }
+.actions { display: flex; align-items: center; gap: .55rem; }
+.rangeLabel select { min-height: 2.55rem; padding: 0 2rem 0 .75rem; border: 1px solid #dce5df; border-radius: .58rem; color: #43564b; background: #fff; font: inherit; font-size: .72rem; font-weight: 600; cursor: pointer; }
+.exportButton { display: inline-flex; align-items: center; justify-content: center; gap: .45rem; min-height: 2.55rem; padding: 0 .85rem; border: 1px solid #dce5df; border-radius: .58rem; color: #43564b; background: #fff; font: inherit; font-size: .75rem; font-weight: 700; cursor: pointer; transition: background 140ms ease, border-color 140ms ease; }
+.exportButton:hover { border-color: #bdd2c5; background: #f8fbf9; }
+.rangeLabel select:focus-visible, .exportButton:focus-visible { outline: 2px solid #16845b; outline-offset: 2px; }
+.metrics { display: grid; grid-template-columns: repeat(4, minmax(0, 1fr)); gap: .8rem; margin-bottom: 1rem; }
+.metricCard { display: flex; align-items: flex-start; gap: .8rem; min-width: 0; padding: 1rem; border: 1px solid var(--line); border-radius: .78rem; background: #fff; box-shadow: 0 3px 12px #17362906; }
+.metricIcon { display: grid; flex: 0 0 auto; width: 2.45rem; height: 2.45rem; place-items: center; border-radius: .68rem; color: #526c5d; background: #f0f4f1; }
+.greenIcon { color: #16734e; background: #eaf5ed; }
+.blueIcon { color: #3e6c89; background: #edf4f8; }
+.amberIcon { color: #a96d14; background: #fff5df; }
+.metricCard p { color: #69776f; font-size: .72rem; font-weight: 600; }
+.metricCard strong { display: block; margin-top: .2rem; overflow: hidden; color: #1b2a22; font-family: "Manrope", "DM Sans", sans-serif; font-size: clamp(1rem, 1.6vw, 1.42rem); font-weight: 800; letter-spacing: -.04em; text-overflow: ellipsis; white-space: nowrap; }
+.metricCard small { display: block; margin-top: .14rem; color: #98a29c; font-size: .65rem; }
+.chartGrid { display: grid; grid-template-columns: minmax(0, 1.3fr) minmax(300px, .9fr); gap: .85rem; margin-bottom: .9rem; }
+.chartCard, .salesCard { min-width: 0; overflow: hidden; border: 1px solid var(--line); border-radius: .82rem; background: #fff; box-shadow: 0 4px 18px #17362907; }
+.chartCard { padding: 1.1rem 1.15rem .75rem; }
+.cardHeading { display: flex; align-items: center; justify-content: space-between; gap: 1rem; }
+.cardHeading h2 { color: #1c2b23; font-family: "Manrope", "DM Sans", sans-serif; font-size: .96rem; font-weight: 800; letter-spacing: -.02em; }
+.cardHeading p { margin-top: .25rem; color: #89948e; font-size: .69rem; }
+.legend { display: inline-flex; align-items: center; gap: .35rem; color: #77847c; font-size: .65rem; }
+.legend i { width: .48rem; height: .48rem; border-radius: 50%; background: #4a9b70; }
+.chart { width: 100%; height: 250px; margin-top: .8rem; }
+.chartEmpty { display: grid; height: 250px; place-items: center; color: #929c96; font-size: .75rem; }
+.count { padding: .32rem .55rem; border: 1px solid #e5ebe7; border-radius: 99px; color: #68766e; background: #fafbfa; font-size: .65rem; font-weight: 600; white-space: nowrap; }
+.salesCard > .cardHeading { padding: 1.1rem 1.15rem .9rem; }
+.tableScroll { width: 100%; overflow-x: auto; }
+.table { width: 100%; border-collapse: collapse; text-align: left; white-space: nowrap; }
+.table th { padding: .7rem .9rem; color: #859189; background: #fafbfa; font-size: .61rem; font-weight: 700; letter-spacing: .08em; text-transform: uppercase; }
+.table th:first-child, .table td:first-child { padding-left: 1.15rem; }
+.table th:last-child, .table td:last-child { padding-right: 1.15rem; }
+.table td { padding: .72rem .9rem; border-top: 1px solid #f0f3f1; color: #627067; font-size: .7rem; }
+.table tbody tr { transition: background 120ms ease; }
+.table tbody tr:hover { background: #fbfcfb; }
+.saleId { color: #397357 !important; font-weight: 700; }
+.amount { color: #27362d !important; font-weight: 700; font-variant-numeric: tabular-nums; }
+.status { display: inline-flex; align-items: center; gap: .38rem; padding: .3rem .45rem; border-radius: 99px; font-size: .62rem; font-weight: 700; }
+.status i { width: .36rem; height: .36rem; border-radius: 50%; background: currentColor; }
+.completed { color: #24734e; background: #edf7f0; }
+.pending { color: #9b6712; background: #fff6e3; }
+.cancelled { color: #a94d48; background: #fff0ef; }
+.empty { height: 120px; color: #87938c !important; text-align: center; }
+.footer { display: flex; justify-content: space-between; gap: .8rem; padding: .75rem 1.15rem; border-top: 1px solid #edf1ee; color: #97a19b; font-size: .64rem; }
+.footer b { color: #637168; }
+.visuallyHidden { position: absolute; width: 1px; height: 1px; padding: 0; margin: -1px; overflow: hidden; clip: rect(0, 0, 0, 0); white-space: nowrap; border: 0; }
+
+@media (max-width: 1050px) {
+  .metrics { grid-template-columns: repeat(2, minmax(0, 1fr)); }
+  .chartGrid { grid-template-columns: minmax(0, 1fr); }
+}
+
+@media (max-width: 600px) {
+  .heading { align-items: flex-start; flex-direction: column; }
+  .heading h1 { font-size: 1.45rem; }
+  .actions { width: 100%; }
+  .actions > * { flex: 1; }
+  .rangeLabel select, .exportButton { width: 100%; }
+  .metricCard { gap: .55rem; padding: .75rem; }
+  .metricIcon { width: 2.1rem; height: 2.1rem; }
+  .metricCard strong { font-size: 1.1rem; }
+  .chartCard { padding: .9rem .75rem .65rem; }
+  .chart { height: 220px; }
+  .salesCard > .cardHeading { padding: .9rem .75rem; }
+  .table th, .table td { padding: .65rem .7rem; }
+  .table th:first-child, .table td:first-child { padding-left: .75rem; }
+  .table th:last-child, .table td:last-child { padding-right: .75rem; }
+  .footer { padding: .7rem .75rem; }
+}
+
+@media (prefers-reduced-motion: reduce) { .exportButton, .table tbody tr { transition: none; } }
