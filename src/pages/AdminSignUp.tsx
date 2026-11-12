@@ -1,6 +1,6 @@
 import { Mail, Archive, User2, Factory } from 'lucide-react';
 import styles from './styles/login.module.css';
-import { useEffect, useState } from 'react';
+import { useState } from 'react';
 
 import InputField from '../components/forms/input-field';
 import SubmitButton from '../components/forms/submit-button';
@@ -55,14 +55,9 @@ function AdminSignUp() {
     } finally {
       setLoading(false);
     }
-  }
 
-  useEffect(() => {
-    if (!token) {
-      setError("This invitation link is missing its token. Ask the company owner for a new invitation.");
-      setEmailValidation(false);
-      return;
-    }
+    if (!token) return <h1>Token invalid</h1>
+  
 
     
     const validateToken = async () => {
@@ -84,7 +79,7 @@ function AdminSignUp() {
     };
 
     validateToken();
-  }, [token]);
+  };
 
   if (emailValidation) {
     return <p>Checking invitation link...</p>;
