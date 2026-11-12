@@ -58,8 +58,6 @@ function AdminSignUp() {
 
     if (!token) return <h1>Token invalid</h1>
   
-
-    
     const validateToken = async () => {
       try {
         const response = await api.validateEmail(token);
@@ -71,10 +69,9 @@ function AdminSignUp() {
 
         // Token is valid
         setError("");
+        setEmailValidation(false);
       } catch (error) {
         setError(getAuthErrorMessage(error, "We couldn't verify this invitation. Check your connection and try again."));
-      } finally {
-        setEmailValidation(false);
       }
     };
 
