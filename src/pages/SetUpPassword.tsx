@@ -12,8 +12,8 @@ import { getAuthErrorMessage } from './authError';
 
 
 function SetUpPassword() {
-  const [confirmPassword, setConfirmPassword] = useState<string>("password");
-  const [password, setPassword] = useState<string>("password");
+  const [confirmPassword, setConfirmPassword] = useState<string>("");
+  const [password, setPassword] = useState<string>("");
   const [submitted, setSubmitted] = useState<boolean>(false);
   const [submittedMessage, setSubmittedMessage] = useState<string>("");
   const [errorMessage, setErrorMessage] = useState<string>("");
