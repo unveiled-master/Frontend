@@ -6,8 +6,9 @@ import InputField from '../components/forms/input-field';
 import SubmitButton from '../components/forms/submit-button';
 import { Link } from 'react-router-dom';
 import { ApiService } from '../services/api.service';
-import axios from 'axios';
 import Icon from '../components/icon';
+import Alert from '../components/alert';
+import { getAuthErrorMessage } from './authError';
 
 const api = new ApiService();
 
@@ -18,10 +19,14 @@ function Register() {
   const [loading, setLoading] = useState<boolean>(false);
   const [submitted, setSubmitted] = useState<boolean>(false);
   const [submittedMessage, setSubmittedMessage] = useState<string>("");
+  const [errorMessage, setErrorMessage] = useState<string>("");
+  const [success, setSuccess] = useState<boolean | null>(null);
 
   
   const handleSubmit = async (event: React.FormEvent<HTMLFormElement>) => {
     event.preventDefault();
+    setErrorMessage("");
+    setSuccess(null);
     setLoading(true)
     const formData = {
       name,
@@ -32,16 +37,19 @@ function Register() {
     try {
       const response = await api.post("auth/register", formData);
       console.log(response);
-      setLoading(false);
-      setSubmitted(true);
-      setSubmittedMessage(response.data.message + `Check ${email} for the email verification.`);
-      return response;
-    } catch (error) {
-      if(axios.isAxiosError(error)) {
-        setLoading(false);
-        setSubmitted(false);
-        alert("Registeration failed");
+      if (response.success === false) {
+        setErrorMessage(response.message || "We couldn't register your company. Please try again.");
+        setSuccess(false);
+      } else {
+        setSubmitted(true);
+        setSubmittedMessage(`${response.message || "Company registered."} Check ${email} for the email verification.`);
       }
+      return response;
+    } catch (error: unknown) {
+      setErrorMessage(getAuthErrorMessage(error, "We couldn't register your company. Please check your details and try again."));
+      setSuccess(false);
+    } finally {
+      setLoading(false);
     }
   }
 
@@ -98,6 +106,7 @@ function Register() {
             readonly={false}
             />
 
+            <Alert message={errorMessage} success={success} setSuccess={setSuccess} setSuccessMessage={setErrorMessage}/>
             <SubmitButton loading={loading} name="Register Company"/>
 
             <p className={styles.medium}>

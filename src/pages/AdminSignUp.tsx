@@ -6,6 +6,8 @@ import InputField from '../components/forms/input-field';
 import SubmitButton from '../components/forms/submit-button';
 import { useParams, useSearchParams } from 'react-router-dom';
 import { api } from '../data/data';
+import Alert from '../components/alert';
+import { getAuthErrorMessage } from './authError';
 
 
 function AdminSignUp() {
@@ -19,6 +21,7 @@ function AdminSignUp() {
   const [loading, setLoading] = useState<boolean>(false);
   const [submitted, setSubmitted] = useState<boolean>(false);
   const [submittedMessage, setSubmittedMessage] = useState<string>("");
+  const [success, setSuccess] = useState<boolean | null>(null);
 
   const [searchParams] = useSearchParams();
 
@@ -27,6 +30,8 @@ function AdminSignUp() {
   
   const handleSubmit = async (event: React.FormEvent<HTMLFormElement>) => {
     event.preventDefault();
+    setError("");
+    setSuccess(null);
     setLoading(true);
     
     const formData = {
@@ -37,21 +42,25 @@ function AdminSignUp() {
     try{
       const response = await api.post('auth/create-admin/'+token, formData);
       console.log(response);
-      setLoading(false);
-
       if (response.data.success) {
         setSubmitted(true);
-        setSubmittedMessage("Check your email to set up your password");
+        setSubmittedMessage(response.data.message || "Check your email to set up your password.");
       } else {
-        alert("Not able to submit at this time. Please try again later");
+        setError(response.data.message || "We couldn't create your admin account. Please try again.");
+        setSuccess(false);
       }
-    } catch (error) {
-      alert("There was an error: " + error)
+    } catch (error: unknown) {
+      setError(getAuthErrorMessage(error, "We couldn't create your admin account. Please try again."));
+      setSuccess(false);
+    } finally {
+      setLoading(false);
     }
   }
 
   useEffect(() => {
     if (!token) {
+      setError("This invitation link is missing its token. Ask the company owner for a new invitation.");
+      setEmailValidation(false);
       return;
     }
 
@@ -68,7 +77,7 @@ function AdminSignUp() {
         // Token is valid
         setError("");
       } catch (error) {
-        setError(`${error}`);
+        setError(getAuthErrorMessage(error, "We couldn't verify this invitation. Check your connection and try again."));
       } finally {
         setEmailValidation(false);
       }
@@ -83,7 +92,7 @@ function AdminSignUp() {
 
   if (error) {
     console.log()
-    return <p>{error}</p>;
+    return <main className={styles.main}><div className={styles.content}><Alert message={error} success={false} setSuccess={() => {}} setSuccessMessage={setError}/></div></main>;
   }
 
   if (submitted) {
@@ -106,6 +115,7 @@ function AdminSignUp() {
           </div>
           <h4>ProdUp Inventory and Sales</h4>
           <p className={styles.medium}>Register Admin</p>
+          <Alert message={error} success={success} setSuccess={setSuccess} setSuccessMessage={setError}/>
 
           <div className={styles.divider}>
             <InputField

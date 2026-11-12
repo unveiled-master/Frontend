@@ -7,6 +7,8 @@ import SubmitButton from '../components/forms/submit-button';
 import { useParams, useSearchParams } from 'react-router-dom';
 import { api } from '../data/data';
 import Icon from '../components/icon';
+import Alert from '../components/alert';
+import { getAuthErrorMessage } from './authError';
 
 
 function SetUpPassword() {
@@ -14,6 +16,9 @@ function SetUpPassword() {
   const [password, setPassword] = useState<string>("password");
   const [submitted, setSubmitted] = useState<boolean>(false);
   const [submittedMessage, setSubmittedMessage] = useState<string>("");
+  const [errorMessage, setErrorMessage] = useState<string>("");
+  const [success, setSuccess] = useState<boolean | null>(null);
+  const [loading, setLoading] = useState<boolean>(false);
 
   const {token} = useParams();
   const [searchParams] = useSearchParams();
@@ -22,23 +27,29 @@ function SetUpPassword() {
   
   const handleSubmit = async (event: React.FormEvent<HTMLFormElement>) => {
     event.preventDefault();
+    if (!passwordsMatch) {
+      setErrorMessage(password !== confirmPassword ? "Your passwords don't match." : "Your password must be at least 8 characters.");
+      setSuccess(false);
+      return;
+    }
+    setErrorMessage("");
+    setSuccess(null);
+    setLoading(true);
     try{
-      setSubmitted(true);
       const response = await api.post("auth/set-password/"+token, {password:password, confirmPassword:password});
-      console.log(response);
-      setSubmittedMessage(response.message);
       if(response.success){
+        setSubmittedMessage(response.message || "Password set successfully. Redirecting to sign in…");
+        setSubmitted(true);
         location.href = '/login';
         return;
       }
-
-      alert(submittedMessage)
-      setSubmitted(false);
-
-
-    } catch(error){
-      console.log(error);
-      setSubmitted(false);
+      setErrorMessage(response.message || "We couldn't set your password. Please try again.");
+      setSuccess(false);
+    } catch(error: unknown){
+      setErrorMessage(getAuthErrorMessage(error, "We couldn't set your password. Check the invitation link and try again."));
+      setSuccess(false);
+    } finally {
+      setLoading(false);
     }
   }
 
@@ -52,6 +63,7 @@ function SetUpPassword() {
       <div className={styles.content}>
         <form onSubmit={handleSubmit}>
           <Icon icon={Archive}/>
+          <Alert message={errorMessage} success={success} setSuccess={setSuccess} setSuccessMessage={setErrorMessage}/>
 
           <div className={styles.divider}>
             
@@ -97,10 +109,10 @@ function SetUpPassword() {
             value={confirmPassword}
             />
 
-            {passwordValid ? "" : <p>Password should be more than or equal to 8 characters</p>}
+            {!passwordValid && <p>Password should be at least 8 characters.</p>}
             
 
-            <SubmitButton name="Set Password" loading={submitted? submitted : !passwordsMatch} alert={submitted? "Setting Up..." : !passwordsMatch? 'Passwords Do not match' : 'Passwords Match'} />
+            <SubmitButton name="Set Password" loading={loading} alert="Setting up your password…" />
           </div>
 
         </form>

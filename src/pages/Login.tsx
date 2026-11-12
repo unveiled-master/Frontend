@@ -7,6 +7,8 @@ import SubmitButton from '../components/forms/submit-button';
 import { Link, Navigate } from 'react-router-dom';
 import { ApiService } from '../services/api.service';
 import Icon from '../components/icon';
+import Alert from '../components/alert';
+import { getAuthErrorMessage } from './authError';
 
 const auth = new ApiService();
 
@@ -15,32 +17,34 @@ function Login() {
   const [password, setPassword] = useState<string>("");
   const [loading, setLoading] = useState<boolean>(false);
   const [submitted, setSubmitted] = useState<boolean>(false);
-  const [submittedMessage, setSubmittedMessage] = useState<string>("");
+  const [errorMessage, setErrorMessage] = useState<string>("");
+  const [success, setSuccess] = useState<boolean | null>(null);
   
   const handleSubmit = async (event: React.FormEvent<HTMLFormElement>) => {
     event.preventDefault();
+    setErrorMessage("");
+    setSuccess(null);
     setLoading(true);
     try{
       const response = await auth.login('auth/login', {email, password});
-      setSubmittedMessage(response.message)
       if (response.success) {
         setSubmitted(true);
         localStorage.setItem("accessToken", response.accessToken);
         localStorage.setItem("user", JSON.stringify(response.user));
       } else {
-        alert(submittedMessage)
-        setLoading(false);
+        setErrorMessage(response.message || "We couldn't sign you in. Check your details and try again.");
+        setSuccess(false);
       }
     } catch(error: unknown){
-      alert(error);
-      console.error(error)
+      setErrorMessage(getAuthErrorMessage(error, "We couldn't sign you in. Check your details and try again."));
+      setSuccess(false);
+    } finally {
       setLoading(false);
     }
     
   }
 
   if(submitted) {
-    alert(submittedMessage);
     return <Navigate to="/dashboard"/>
   }
 
@@ -52,6 +56,7 @@ function Login() {
           <Icon icon={Archive}/>
           <h4>ProdUp Inventory and Sales</h4>
           <p className={styles.small}>Enter your enterprise credentials to access your sales and inventory dashboard</p>
+          <Alert message={errorMessage} success={success} setSuccess={setSuccess} setSuccessMessage={setErrorMessage}/>
 
           <div className={styles.divider}>
             
