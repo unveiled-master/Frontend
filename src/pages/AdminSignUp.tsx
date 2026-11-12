@@ -1,6 +1,6 @@
 import { Mail, Archive, User2, Factory } from 'lucide-react';
 import styles from './styles/login.module.css';
-import { useState } from 'react';
+import { useEffect, useState } from 'react';
 
 import InputField from '../components/forms/input-field';
 import SubmitButton from '../components/forms/submit-button';
@@ -55,12 +55,13 @@ function AdminSignUp() {
     } finally {
       setLoading(false);
     }
+  };
 
-    if (!token) return <h1>Token invalid</h1>
-  
+  useEffect(() => {
+
     const validateToken = async () => {
       try {
-        const response = await api.validateEmail(token);
+        const response = await api.validateEmail(token!);
         
         if (response.valid === false) {
           setError(response.message);
@@ -74,17 +75,14 @@ function AdminSignUp() {
         setError(getAuthErrorMessage(error, "We couldn't verify this invitation. Check your connection and try again."));
       }
     };
-
     validateToken();
-  };
+  }, [token])
+
+
+  if (!token) return <h1>Token invalid</h1>
 
   if (emailValidation) {
     return <p>Checking invitation link...</p>;
-  }
-
-  if (error) {
-    console.log()
-    return <main className={styles.main}><div className={styles.content}><Alert message={error} success={false} setSuccess={() => {}} setSuccessMessage={setError}/></div></main>;
   }
 
   if (submitted) {
