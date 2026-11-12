@@ -97,7 +97,7 @@ export default function SettingsPage() {
 
         {activeSection === "account" && <section className={styles.card} key="account">
           <div className={styles.cardHeading}><span className={`${styles.sectionIcon} ${styles.accountIcon}`}><ShieldCheck size={18} /></span><div><h2>Account</h2><p>Your current signed-in profile.</p></div></div>
-          <div className={styles.accountRow}><span className={styles.avatar}>{account.name.trim().split(/\s+/).slice(0, 2).map((part) => part[0]?.toUpperCase()).join("") || "U"}</span><span><strong>{account.name}</strong><small>{account.email || "Email address not available"}</small></span><span className={styles.accountStatus}><i /> Active</span></div>
+          <div className={styles.accountRow}><span className={styles.avatar}>{account.name.trim().split(/\s+/).slice(0, 2).map((part: string) => part[0]?.toUpperCase()).join("") || "U"}</span><span><strong>{account.name}</strong><small>{account.email || "Email address not available"}</small></span><span className={styles.accountStatus}><i /> Active</span></div>
           <p className={styles.note}>Profile and password changes are managed by your account administrator.</p>
         </section>}
 
