@@ -42,7 +42,7 @@ function AdminSignUp() {
     try{
       const response = await api.post('auth/create-admin/'+token, formData);
       console.log(response);
-      if (response.data.success) {
+      if (response.success) {
         setSubmitted(true);
         setSubmittedMessage(response.data.message || "Check your email to set up your password.");
       } else {
