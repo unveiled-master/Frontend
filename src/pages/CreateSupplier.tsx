@@ -6,7 +6,7 @@ import SubmitButton from "../components/forms/submit-button";
 import styles from "./styles/createSupplier.module.css";
 import Icon from "../components/icon";
 import Alert from "../components/alert";
-import axios from "axios";
+import { getRequestErrorMessage } from "./authError";
 
 type SupplierForm = Omit<Supplier, "id" | "createdAt">
 const statusOptions: Option[] = [
@@ -46,12 +46,7 @@ export default function CreateSupplier () {
       console.log(response);
     } catch (error) {
       setSuccess(false);
-      if(axios.isAxiosError(error)){
-        setSuccessMessage(error.response?.data.message);
-        return;
-      } else if (error instanceof Error) {
-        setSuccessMessage(error.message);
-      }
+      setSuccessMessage(getRequestErrorMessage(error, "Supplier could not be added. Please try again."));
     }
   }
 

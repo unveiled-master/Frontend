@@ -9,6 +9,7 @@ import SubmitButton from "../components/forms/submit-button";
 import { api, type Product, statusOptions } from "../data/data";
 import styles from "./styles/createProduct.module.css";
 import Alert from "../components/alert";
+import { getRequestErrorMessage } from "./authError";
 
 type ProductForm = Omit<Product, "id" | "createdAt" | "image"> & { image: string };
 
@@ -75,11 +76,8 @@ export default function CreateProduct() {
       setSuccessMessage(`Product: ${product.name}, Created Successfully`)
       event.currentTarget.reset();
     } catch(error){
-      if(error instanceof Error) {
-        console.log(error.message);
-        setSuccess(false);
-        setSuccessMessage(`Product: ${form.name}, could not be created`);
-      }
+      setSuccess(false);
+      setSuccessMessage(getRequestErrorMessage(error, `Product: ${form.name} could not be created. Please try again.`));
     }
     window.scrollTo({
       top: 0,

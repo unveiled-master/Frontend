@@ -23,6 +23,9 @@ body{
   height: 100dvh;
   display: flex;
   /* background-color: #ecfbff; */
+  overflow-y: scroll;
+  overflow-x: hidden;
+  position: relative;
 }
 
 .main {
@@ -35,9 +38,6 @@ body{
   font-family: "DM Sans", sans-serif;
   color: #1f2937;
   align-items: flex-start;
-  overflow-y: scroll;
-  overflow-x: hidden;
-  position: relative;
 }
 
 .collapsed .companyName,

@@ -1,8 +1,8 @@
 import { useState, type FormEvent } from "react";
 import { Link, useNavigate } from "react-router-dom";
 import { ArrowLeft, MapPin, Mail, Phone, UserRound, UsersRound } from "lucide-react";
-import axios from "axios";
 import { api } from "../data/data";
+import { getRequestErrorMessage } from "./authError";
 import styles from "./styles/createCustomer.module.css";
 
 export default function CreateCustomer() {
@@ -19,8 +19,7 @@ export default function CreateCustomer() {
       await api.post("customer", values);
       navigate("/customers");
     } catch (requestError) {
-      if (axios.isAxiosError(requestError)) setError(requestError.response?.data?.message || "Customer could not be added. Please try again.");
-      else setError("Customer could not be added. Please try again.");
+      setError(getRequestErrorMessage(requestError, "Customer could not be added. Please try again."));
     } finally {
       setSaving(false);
     }

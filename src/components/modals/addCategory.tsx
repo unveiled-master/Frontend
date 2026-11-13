@@ -4,8 +4,8 @@ import InputField from "../forms/input-field";
 import { useState } from "react";
 import Loading from "../forms/loading";
 import { ApiService } from "../../services/api.service";
-import axios from "axios";
 import { statusOptions, type Category } from "../../data/data";
+import { getRequestErrorMessage } from "../../pages/authError";
 
 type props = {
   closeModal: () => void,
@@ -37,11 +37,9 @@ export default function AddCategory ({closeModal, setSuccess, setMessage, setCat
       console.log(response);
 
       if(response.success === false) {
-        console.log("Response: ", response);
-        setMessage( response.error.response.data.message || response.data.message || "Request failed");
+        setMessage(getRequestErrorMessage(response, "Category could not be added. Please try again."));
         setLoading(false);
         setSuccess(false);
-        closeModal();
         return;
       }
       const category: Category = response.data.category;
@@ -51,12 +49,10 @@ export default function AddCategory ({closeModal, setSuccess, setMessage, setCat
       setCategory((current: Category[])  => [...current]);
       closeModal();
     } catch (error) {
-      if(axios.isAxiosError(error)) {
-        setMessage( error.response?.data.message ?? error.message ?? "Request failed");
-        setLoading(false);
-        setSuccess(false);
-        closeModal();
-      }
+      setMessage(getRequestErrorMessage(error, "Category could not be added. Please try again."));
+      setLoading(false);
+      setSuccess(false);
+      closeModal();
     }
   }
 

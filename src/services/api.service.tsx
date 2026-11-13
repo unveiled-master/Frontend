@@ -85,53 +85,24 @@ export class ApiService {
   }
 
   async post(url: string, data: object) {
-    console.log(HOST);
-
-    try {
-      const response = await axios.post(
-        HOST+url, 
-        {
-          ...data
-        }, 
-        {
-          headers: {
+    accessToken = localStorage.getItem("accessToken") || "";
+    const send = () => axios.post(
+      HOST + url,
+      { ...data },
+      {
+        headers: {
           'Content-Type': 'application/json',
           'Authorization': `Bearer ${accessToken}`
-          }
-        }
-      );
-      return response.data;
-    } catch (error) {
-      if(axios.isAxiosError(error)){
-        if(error.status === 401) {
-          await this.refesh();
-        }
-
-        try {
-          const response = await axios.post(
-            HOST+url, 
-            {
-              ...data
-            }, 
-            {
-              headers: {
-              'Content-Type': 'application/json',
-              'Authorization': `Bearer ${accessToken}`
-              }
-            }
-          );
-          return response.data;
-        } catch (error) {
-          if(axios.isAxiosError(error)) {
-            console.log(error.response)
-            throw error;
-          }else if(error instanceof Error) {
-            console.log(error.message)
-          }
-          throw error;
         }
       }
-      throw error;
+    );
+
+    try {
+      return (await send()).data;
+    } catch (error) {
+      if (!axios.isAxiosError(error) || error.response?.status !== 401) throw error;
+      await this.refesh();
+      return (await send()).data;
     }
   }
 
