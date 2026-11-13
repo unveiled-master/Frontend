@@ -42,11 +42,11 @@ export default function AddCategory ({closeModal, setSuccess, setMessage, setCat
         setSuccess(false);
         return;
       }
-      const category: Category = response.data.category;
+      const category: Category = response.category;
       setMessage(`${category.name} Category Added`)
       setLoading(false);
       setSuccess(true);
-      setCategory((current: Category[])  => [...current]);
+      setCategory((current: Category[])  => [...current, category]);
       closeModal();
     } catch (error) {
       setMessage(getRequestErrorMessage(error, "Category could not be added. Please try again."));
@@ -89,6 +89,7 @@ export default function AddCategory ({closeModal, setSuccess, setMessage, setCat
             icon={ChartNoAxesColumn}
             onFieldChanged={() => {}}
             type="select"
+            required
             options={statusOptions}
           />
 

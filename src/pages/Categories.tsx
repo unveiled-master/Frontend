@@ -61,12 +61,16 @@ export default function Categories () {
   const getCategories = async () => {
     try {
       setLoading(true);
-
+      setSuccess(!loading);
+      setMessage("Loading categories");
       const response = await api.get("category");
 
       // Adjust this according to the structure returned by your API.
       console.log(response);
-      setCategories(response.categories);
+      // alert(response)
+      if(response.length == 0) {setMessage("No categories found")} else{ setMessage(`${response.length} Categories successfully gotten`)}
+      setLoading(false);
+      setCategories(response);
     } catch (error) {
       if(axios.isAxiosError(error)) {
         console.log(error.response)
@@ -87,18 +91,14 @@ export default function Categories () {
     fetchCategories();
   }, []);
 
-  if(loading){
-    return <h1>Loading Categories..</h1>
-  }
-  
   return <>
-    <h1>Categories</h1>
-    <Alert success={success} message={message} setSuccess={setSuccess} setSuccessMessage={setMessage}/>
-    <DataTableHeader buttonClick={openAddCategoryModal} onChange={setSearchValue} value={searchValue} addItem="Add Category"/>
-    <section>
-      <DataTable data={categories} columns={columns}/>
-    </section>
+      <h1>Categories</h1>
+      <Alert success={success} message={message} setSuccess={setSuccess} setSuccessMessage={setMessage}/>
+      <DataTableHeader buttonClick={openAddCategoryModal} onChange={setSearchValue} value={searchValue} addItem="Add Category"/>
+      <section>
+        <DataTable data={categories} columns={columns}/>
+      </section>
 
-    {/* <Alert success={success} message={message}/> */}
-  </>
+      {/* <Alert success={success} message={message}/> */}
+    </>
 }
