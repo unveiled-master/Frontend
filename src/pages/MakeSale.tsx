@@ -13,11 +13,21 @@ import {
   Trash2,
 } from "lucide-react";
 import { api, type Product } from "../data/data";
+import { HOST } from "../data/envVariables";
 import styles from "./styles/makeSale.module.css";
 
 type CartItem = { product: Product; quantity: number };
 
-const money = (amount: number) => `GH₵ ${amount.toFixed(2)}`;
+const getCategoryName = (category: Product["category"] | string | null | undefined) => {
+  if (typeof category === "string") return category || "Uncategorized";
+  if (category && typeof category.name === "string") return category.name;
+  return "Uncategorized";
+};
+
+const money = (amount: number | string) => {
+  const value = Number(amount);
+  return `GH₵ ${(Number.isFinite(value) ? value : 0).toFixed(2)}`;
+};
 
 export default function MakeSale() {
   const [products, setProducts] = useState<Product[]>([]);
@@ -45,13 +55,14 @@ export default function MakeSale() {
   }, []);
 
   const categories = useMemo(
-    () => ["All products", ...Array.from(new Set(products.map((product) => product.category || "Uncategorized")))],
+    () => ["All products", ...Array.from(new Set(products.map((product) => getCategoryName(product.category))))],
     [products],
   );
   const visibleProducts = useMemo(() => products.filter((product) => {
-    const matchesCategory = category === "All products" || (product.category || "Uncategorized") === category;
+    const categoryName = getCategoryName(product.category);
+    const matchesCategory = category === "All products" || categoryName === category;
     const term = search.trim().toLowerCase();
-    const matchesSearch = !term || [product.name, product.sku, product.barcode, product.category]
+    const matchesSearch = !term || [product.name, product.sku, product.barcode, categoryName]
       .some((value) => value?.toLowerCase().includes(term));
     return matchesCategory && matchesSearch;
   }), [products, category, search]);
@@ -112,8 +123,8 @@ export default function MakeSale() {
               {visibleProducts.map((product) => {
                 const quantity = cart.find((item) => item.product.sku === product.sku)?.quantity ?? 0;
                 return <article className={styles.productCard} key={product.sku}>
-                  <div className={styles.productImageWrap}><div className={styles.productPlaceholder}><ShoppingBag size={26} /></div>{quantity > 0 && <span className={styles.inCartBadge}>{quantity} in order</span>}</div>
-                  <div className={styles.productDetails}><span className={styles.productCategory}>{product.category || "Uncategorized"}</span><h3 title={product.name}>{product.name}</h3><p className={styles.productSku}>SKU: {product.sku}</p>
+                  <div className={styles.productImageWrap}>{product.image?.id ? <img src={`${HOST}image/${product.image.id}`} alt={product.name} /> : <div className={styles.productPlaceholder}><ShoppingBag size={26} /></div>}{quantity > 0 && <span className={styles.inCartBadge}>{quantity} in order</span>}</div>
+                  <div className={styles.productDetails}><span className={styles.productCategory}>{getCategoryName(product.category)}</span><h3 title={product.name}>{product.name}</h3><p className={styles.productSku}>SKU: {product.sku}</p>
                     <div className={styles.productCardFooter}><div><strong>{money(product.sellingPrice)}</strong><span>{product.currentStock} in stock</span></div><button type="button" aria-label={`Add ${product.name} to order`} onClick={() => changeQuantity(product, 1)} disabled={product.currentStock <= quantity}><Plus size={17} /></button></div>
                   </div>
                 </article>;
@@ -121,7 +132,7 @@ export default function MakeSale() {
             </div>
           ) : (
             <div className={styles.tableWrap}><table className={styles.productTable}><thead><tr><th>Product</th><th>Price</th><th>Stock</th><th></th></tr></thead><tbody>
-              {visibleProducts.map((product) => { const quantity = cart.find((item) => item.product.sku === product.sku)?.quantity ?? 0; return <tr key={product.sku}><td><div className={styles.tableProduct}><span><strong>{product.name}</strong><small>{product.sku}</small></span></div></td><td className={styles.tablePrice}>{money(product.sellingPrice)}</td><td>{product.currentStock}</td><td><button className={styles.tableAdd} type="button" onClick={() => changeQuantity(product, 1)} disabled={product.currentStock <= quantity}><Plus size={14} /> Add</button></td></tr>; })}
+              {visibleProducts.map((product) => { const quantity = cart.find((item) => item.product.sku === product.sku)?.quantity ?? 0; return <tr key={product.sku}><td><div className={styles.tableProduct}>{product.image?.id && <img src={`${HOST}image/${product.image.id}`} alt={product.name} />}<span><strong>{product.name}</strong><small>{product.sku}</small></span></div></td><td className={styles.tablePrice}>{money(product.sellingPrice)}</td><td>{product.currentStock}</td><td><button className={styles.tableAdd} type="button" onClick={() => changeQuantity(product, 1)} disabled={product.currentStock <= quantity}><Plus size={14} /> Add</button></td></tr>; })}
             </tbody></table></div>
           )}
         </section>

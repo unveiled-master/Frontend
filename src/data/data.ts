@@ -28,13 +28,18 @@ export type Category = {
   createdAt: string;
 };
 
+type Image = {
+  entityId: string,
+  id: string,
+}
+
 export type Product = {
   // id?: string
-  image: string
+  image: Image
   supplierId: string
   categoryId: string
-  supplier?: string
-  category?: string
+  supplier?: Supplier
+  category?: Category
   name: string
   sku: string
   barcode: string

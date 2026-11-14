@@ -3,12 +3,12 @@
 @import url('https://fonts.googleapis.com/css2?family=Roboto:wght@100&display=swap');
 
 
-section:not(.kpiSection){
+/* section:not(.kpiSection){
   background-color: white;
   padding: 0.5rem;
   border-radius: 0.875rem;
   box-shadow: 0px 0px 40px #24232310;
-}
+} */
 
 .row:not(.kpiSection){
   display: flex;

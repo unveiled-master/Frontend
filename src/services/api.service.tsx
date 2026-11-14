@@ -86,21 +86,27 @@ export class ApiService {
 
   async post(url: string, data: object) {
     accessToken = localStorage.getItem("accessToken") || "";
+
     const send = () => axios.post(
       HOST + url,
-      { ...data },
+      data,
       {
         headers: {
-          'Content-Type': 'application/json',
-          'Authorization': `Bearer ${accessToken}`
-        }
+          ...(data instanceof FormData
+            ? {}
+            : { "Content-Type": "application/json" }),
+          Authorization: `Bearer ${accessToken}`,
+        },
       }
     );
 
     try {
       return (await send()).data;
     } catch (error) {
-      if (!axios.isAxiosError(error) || error.response?.status !== 401) throw error;
+      if (!axios.isAxiosError(error) || error.response?.status !== 401) {
+        throw error;
+      }
+
       await this.refesh();
       return (await send()).data;
     }

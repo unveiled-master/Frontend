@@ -16,7 +16,7 @@ type ProductForm = Omit<Product, "id" | "createdAt" | "image"> & { image: string
 const initialForm: ProductForm = {
   name: "Wireless Keyboard", sku: "SKU-CLS-1199", barcode: "scbdjncjndjncd", categoryId: "", supplierId: "", description: "sadsadsx",
   costPrice: 0, sellingPrice: 0, currentStock: 0, reservedStock: 0,
-  minimumStock: 0, status: "ACTIVE", image: "some-image",
+  minimumStock: 0, status: "ACTIVE", image: "",
 };
 
 export default function CreateProduct() {
@@ -71,10 +71,14 @@ export default function CreateProduct() {
   const handleSubmit = async (event: FormEvent<HTMLFormElement>) => {
     event.preventDefault();
     try {
-      const product = await api.post('product', form);
+      const formData = new FormData(event.currentTarget);
+      for (const [key, value] of formData.entries()) {
+        console.log(key, value)
+      }
+      console.log(formData.entries())
+      const product = await api.post('product', formData);
       setSuccess(true);
       setSuccessMessage(`Product: ${product.name}, Created Successfully`)
-      event.currentTarget.reset();
     } catch(error){
       setSuccess(false);
       setSuccessMessage(getRequestErrorMessage(error, `Product: ${form.name} could not be created. Please try again.`));
@@ -88,7 +92,7 @@ export default function CreateProduct() {
   return (
     <main className={styles.page}>
     <div className={styles.content}>
-      <form className={styles.form} onSubmit={handleSubmit}>
+      <form encType="multipart/form-data" className={styles.form} onSubmit={(e) => {handleSubmit(e)}}>
         <div className={styles.iconBg}><div className={styles.icon}><div className={styles.iconContainer}><Package /></div></div></div>
         <h1>Create product</h1>
         <p className={styles.subtitle}>Add a product to your inventory</p>
@@ -101,8 +105,8 @@ export default function CreateProduct() {
           <div className={styles.fields}>
             <InputField label="Product name" icon={Tag} name="name" placeholder="e.g. Wireless keyboard" value={form.name} onFieldChanged={update("name")} required />
             <InputField label="SKU" icon={ClipboardList} name="sku" placeholder="e.g. KEY-WRL-001" value={form.sku} onFieldChanged={update("sku")} required />
-            <InputField label="Category" icon={Layers3} name="category" type="select" value={form.categoryId} options={categories} onFieldChanged={() => {}} onSelectChanged={update("categoryId")} required />
-            <InputField label="Supplier" icon={Truck} name="supplier" placeholder="Supplier name" value={form.supplierId} onFieldChanged={() => {}} onSelectChanged={update("supplierId")} type="select" options={suppliers}/>
+            <InputField label="Category" icon={Layers3} name="categoryId" type="select" value={form.categoryId} options={categories} onFieldChanged={() => {}} onSelectChanged={update("categoryId")} required />
+            <InputField label="Supplier" icon={Truck} name="supplierId" placeholder="Supplier name" value={form.supplierId} onFieldChanged={() => {}} onSelectChanged={update("supplierId")} type="select" options={suppliers}/>
             <div className={styles.fullWidth}>
             <InputField label="Barcode" icon={Barcode} name="barcode" placeholder="Scan or enter a barcode" value={form.barcode} onFieldChanged={update("barcode")} />
             </div>
@@ -117,7 +121,7 @@ export default function CreateProduct() {
               <label className={`${styles.imageUpload} ${styles.fullWidth}`}>
               <ImagePlus size={20} />
               <span><strong>{imageName || "Choose a product image"}</strong><small>PNG, JPG or WEBP</small></span>
-              <input type="file" accept="image/*" onChange={(event) => {
+              <input name="image" type="file" accept="image/*" onChange={(event) => {
                 const file = event.target.files?.[0];
                 if (!file) return;
                 setImageName(file.name);

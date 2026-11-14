@@ -6,6 +6,9 @@ import { useEffect, useState } from "react";
 import { useModal } from "../components/contexts/useModal";
 import AddProduct from "../components/modals/addProduct";
 import { api, type Product } from "../data/data";
+import { HOST } from "../data/envVariables";
+
+
 
 
 
@@ -17,9 +20,13 @@ export default function Products () {
   
   useEffect(() => {
     const fetch = async () => {
-      const ps = await api.get('product');
+      const ps: Product[] = await api.get('product');
+      // const image: Image = await ps.image;
+      // const category: Category = await ps.category;
       console.log(ps);
-      setProducts(ps.map((product: Product) => ({...product, category: product.category, image: "Some-image"})));
+      setProducts(ps.map((product: Product) => ({
+        ...product, createdAt: `${new Date(product.createdAt!).toDateString()}`
+      })));
     }
     fetch();
   }, [])
@@ -50,16 +57,24 @@ export default function Products () {
       "image", {
         header: "img",
         cell: (info) => {
-          return <img src={info.getValue()} alt="Product Image" height='40px' width='50px'/>
+          const url = HOST +'image/' + info.getValue().id;
+          
+          return <img src={url} alt="Product Image" height='40px' width='50px'/>
         }
     }),
     columnHelper.accessor(
       "category", {
-        header: "category"
+        header: "category",
+        cell: (info) => {
+          return <span>{info.getValue()?.name}</span>
+        }
     }),
     columnHelper.accessor(
       "supplier", {
-        header: "supplier"
+        header: "supplier",
+        cell: (info) => {
+          return <span>{info.getValue()?.name}</span>
+        }
     }),
     columnHelper.accessor(
       "barcode", {
@@ -95,7 +110,12 @@ export default function Products () {
     }),
     columnHelper.accessor(
       "createdAt", {
-        header: "createdAt"
+        header: "createdAt",
+        // cell: (info) => {
+        //   const d =info.getValue()!;
+        //   const date = new Date(d);
+        //   return <span>{date.toDateString()}</span>
+        // }
     })
   ])
 
