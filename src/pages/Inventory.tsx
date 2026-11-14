@@ -6,6 +6,12 @@ import styles from "./styles/inventory.module.css";
 
 type StockFilter = "All stock" | "Low stock" | "Out of stock";
 
+function getCategoryName(category: Product["category"] | string | null | undefined) {
+  if (typeof category === "string") return category || "Uncategorized";
+  if (category && typeof category.name === "string") return category.name;
+  return "Uncategorized";
+}
+
 function getStockState(product: Product) {
   if (product.currentStock <= 0) return "Out of stock";
   if (product.currentStock <= product.minimumStock) return "Low stock";
@@ -35,14 +41,14 @@ export default function Inventory() {
   const totalUnits = products.reduce((total, product) => total + product.currentStock, 0);
   const filteredProducts = useMemo(() => products.filter((product) => {
     const term = search.trim().toLowerCase();
-    const matchesSearch = !term || [product.name, product.sku, product.category]
+    const matchesSearch = !term || [product.name, product.sku, getCategoryName(product.category)]
       .some((value) => value?.toLowerCase().includes(term));
     const status = getStockState(product);
     return matchesSearch && (filter === "All stock" || status === filter);
   }), [products, search, filter]);
 
   const exportCsv = () => {
-    const rows = [["Product", "SKU", "Category", "Available stock", "Minimum stock", "Unit cost", "Stock status"], ...filteredProducts.map((product) => [product.name, product.sku, product.category || "Uncategorized", String(product.currentStock), String(product.minimumStock), String(product.costPrice), getStockState(product)])];
+    const rows = [["Product", "SKU", "Category", "Available stock", "Minimum stock", "Unit cost", "Stock status"], ...filteredProducts.map((product) => [product.name, product.sku, getCategoryName(product.category), String(product.currentStock), String(product.minimumStock), String(product.costPrice), getStockState(product)])];
     const csv = rows.map((row) => row.map((value) => `"${value.replaceAll('"', '""')}"`).join(",")).join("\n");
     const url = URL.createObjectURL(new Blob([csv], { type: "text/csv;charset=utf-8" }));
     const link = document.createElement("a");
@@ -84,7 +90,7 @@ export default function Inventory() {
             const barClass = status === "Out of stock" ? styles.outBar : status === "Low stock" ? styles.lowBar : "";
             return <tr key={product.sku}>
               <td><div className={styles.product}><span className={styles.productMark}><Boxes size={16} /></span><strong>{product.name}</strong></div></td>
-              <td className={styles.sku}>{product.sku}</td><td>{product.category || "Uncategorized"}</td>
+              <td className={styles.sku}>{product.sku}</td><td>{getCategoryName(product.category)}</td>
               <td><strong className={styles.quantity}>{product.currentStock.toLocaleString()}</strong><span className={styles.minimum}> min. {product.minimumStock}</span></td>
               <td><div className={styles.stockTrack} aria-label={`${product.currentStock} units, minimum ${product.minimumStock}`}><span className={barClass} style={{ width: `${level}%` }} /></div></td>
               <td><span className={`${styles.status} ${status === "In stock" ? styles.inStock : status === "Low stock" ? styles.lowStock : styles.outOfStock}`}><i />{status}</span></td>
