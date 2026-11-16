@@ -103,6 +103,9 @@ export class ApiService {
     try {
       return (await send()).data;
     } catch (error) {
+      if(axios.isAxiosError(error)){
+        console.log(error.response);
+      }
       if (!axios.isAxiosError(error) || error.response?.status !== 401) {
         throw error;
       }

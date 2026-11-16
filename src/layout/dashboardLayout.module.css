@@ -114,7 +114,6 @@ body{
   position: relative;
   transition: width linear 0.3s;
   overflow: hidden;
-  position: relative;
   margin: 1rem 0rem 1rem 1rem;
   transition: all 0.3s linear;
 }

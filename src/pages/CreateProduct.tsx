@@ -28,6 +28,7 @@ export default function CreateProduct() {
   const [successMessage, setSuccessMessage] = useState<string>("");
   const [categories, setCategories] = useState<Option[]>([]);
   const [suppliers, setSuppliers] = useState<Option[]>([]);
+  const [loading, setLoading]= useState<boolean>();
   
   const getCategories = async () => {
     try{
@@ -71,17 +72,21 @@ export default function CreateProduct() {
   const handleSubmit = async (event: FormEvent<HTMLFormElement>) => {
     event.preventDefault();
     try {
+      setLoading(true);
       const formData = new FormData(event.currentTarget);
-      for (const [key, value] of formData.entries()) {
-        console.log(key, value)
-      }
-      console.log(formData.entries())
+      // for (const [key, value] of formData.entries()) {
+      //   console.log(key, value)
+      // }
+      // console.log(formData.entries())
       const product = await api.post('product', formData);
       setSuccess(true);
       setSuccessMessage(`Product: ${product.name}, Created Successfully`)
+      setLoading(false);
     } catch(error){
       setSuccess(false);
+      setLoading(false);
       setSuccessMessage(getRequestErrorMessage(error, `Product: ${form.name} could not be created. Please try again.`));
+      console.log(error);
     }
     window.scrollTo({
       top: 0,
@@ -153,18 +158,18 @@ export default function CreateProduct() {
             <div><h2>Pricing & stock</h2><p>Set the product's prices and starting quantities.</p></div>
           </div>
           <div className={styles.fields}>
-            <InputField label="Cost price" icon={CircleDollarSign} name="costPrice" type="number" placeholder="0.00" value={String(form.costPrice || "")} onFieldChanged={update("costPrice")} />
-            <InputField label="Selling price" icon={CircleDollarSign} name="sellingPrice" type="number" placeholder="0.00" value={String(form.sellingPrice || "")} onFieldChanged={update("sellingPrice")} />
-            <InputField label="Current stock" icon={Boxes} name="currentStock" type="number" placeholder="0" value={String(form.currentStock || "")} onFieldChanged={update("currentStock")} />
-            <InputField label="Minimum stock" icon={Boxes} name="minimumStock" type="number" placeholder="0" value={String(form.minimumStock || "")} onFieldChanged={update("minimumStock")} />
-            <InputField label="Reserved stock" icon={Boxes} name="reservedStock" type="number" placeholder="0" value={String(form.reservedStock || "")} onFieldChanged={update("reservedStock")} />
+            <InputField label="Cost price" icon={CircleDollarSign} name="costPrice" type="number" placeholder="0.00" value={String(form.costPrice)} onFieldChanged={update("costPrice")} />
+            <InputField label="Selling price" icon={CircleDollarSign} name="sellingPrice" type="number" placeholder="0.00" value={String(form.sellingPrice)} onFieldChanged={update("sellingPrice")} />
+            <InputField label="Current stock" icon={Boxes} name="currentStock" type="number" placeholder="0" value={String(form.currentStock)} onFieldChanged={update("currentStock")} />
+            <InputField label="Minimum stock" icon={Boxes} name="minimumStock" type="number" placeholder="0" value={String(form.minimumStock)} onFieldChanged={update("minimumStock")} />
+            <InputField label="Reserved stock" icon={Boxes} name="reservedStock" type="number" placeholder="0" value={String(form.reservedStock)} onFieldChanged={update("reservedStock")} />
             <InputField label="Status" icon={Package} name="status" type="select" value={form.status} options={statusOptions} onFieldChanged={() => {}} onSelectChanged={(value) => setForm((current) => ({ ...current, status: value as Product["status"] }))} />
           </div>
         </section>
         
         <div id={styles.buttonArea}>
           <button className={styles.backButton} type="button" onClick={() => navigate("/products")}>Cancel</button>
-          <SubmitButton name="Create product" />
+          <SubmitButton name="Create product" loading={loading}/>
         </div>
 
       </form>

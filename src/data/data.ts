@@ -34,7 +34,7 @@ type Image = {
 }
 
 export type Product = {
-  // id?: string
+  id?: string
   image: Image
   supplierId: string
   categoryId: string
