@@ -1,71 +1,71 @@
-import { useEffect, useMemo, useState } from "react";
-import { ArrowDownToLine, Banknote, Boxes, ShoppingCart, TrendingUp } from "lucide-react";
-import { Bar, BarChart, CartesianGrid, Cell, ResponsiveContainer, Tooltip, XAxis, YAxis, Area, AreaChart } from "recharts";
-import { api, sales, type Product, type Sale } from "../data/data";
-import styles from "./styles/reports.module.css";
+// import { useEffect, useMemo, useState } from "react";
+// import { ArrowDownToLine, Banknote, Boxes, ShoppingCart, TrendingUp } from "lucide-react";
+// import { Bar, BarChart, CartesianGrid, Cell, ResponsiveContainer, Tooltip, XAxis, YAxis, Area, AreaChart } from "recharts";
+// import { api, type Product, type Sale } from "../data/data";
+// import styles from "./styles/reports.module.css";
 
-type Range = "30" | "90" | "365";
-const money = (value: number) => `GH₵ ${value.toLocaleString("en-GH", { minimumFractionDigits: 2, maximumFractionDigits: 2 })}`;
-const CHART_COLORS = ["#176b4c", "#4a9b70", "#78b990", "#a7d0b2", "#c7e2cd"];
+// type Range = "30" | "90" | "365";
+// const money = (value: number) => `GH₵ ${value.toLocaleString("en-GH", { minimumFractionDigits: 2, maximumFractionDigits: 2 })}`;
+// const CHART_COLORS = ["#176b4c", "#4a9b70", "#78b990", "#a7d0b2", "#c7e2cd"];
 
 export default function Reports() {
-  const [range, setRange] = useState<Range>("90");
-  const [products, setProducts] = useState<Product[]>([]);
-  const [inventoryError, setInventoryError] = useState("");
+  // const [range, setRange] = useState<Range>("90");
+  // const [products, setProducts] = useState<Product[]>([]);
+  // const [inventoryError, setInventoryError] = useState("");
 
-  useEffect(() => {
-    let active = true;
-    api.get("product")
-      .then((result: Product[]) => { if (active) setProducts(Array.isArray(result) ? result : []); })
-      .catch(() => { if (active) setInventoryError("Inventory summary is unavailable."); });
-    return () => { active = false; };
-  }, []);
+  // useEffect(() => {
+  //   let active = true;
+  //   api.get("product")
+  //     .then((result: Product[]) => { if (active) setProducts(Array.isArray(result) ? result : []); })
+  //     .catch(() => { if (active) setInventoryError("Inventory summary is unavailable."); });
+  //   return () => { active = false; };
+  // }, []);
 
-  const rangeStart = useMemo(() => {
-    const date = new Date();
-    date.setHours(0, 0, 0, 0);
-    date.setDate(date.getDate() - Number(range));
-    return date;
-  }, [range]);
-  const filteredSales = useMemo(() => sales.filter((sale) => {
-    const date = new Date(`${sale.date}T00:00:00`);
-    return !Number.isNaN(date.getTime()) && date >= rangeStart;
-  }), [rangeStart]);
-  const completedSales = filteredSales.filter((sale) => sale.status === "Completed");
-  const revenue = completedSales.reduce((sum, sale) => sum + sale.amount, 0);
-  const averageOrder = completedSales.length ? revenue / completedSales.length : 0;
-  const lowStock = products.filter((product) => product.currentStock > 0 && product.currentStock <= product.minimumStock).length;
-  const outOfStock = products.filter((product) => product.currentStock <= 0).length;
+  // const rangeStart = useMemo(() => {
+  //   const date = new Date();
+  //   date.setHours(0, 0, 0, 0);
+  //   date.setDate(date.getDate() - Number(range));
+  //   return date;
+  // }, [range]);
+  // const filteredSales = useMemo(() => sales.filter((sale) => {
+  //   const date = new Date(`${sale.date}T00:00:00`);
+  //   return !Number.isNaN(date.getTime()) && date >= rangeStart;
+  // }), [rangeStart]);
+  // const completedSales = filteredSales.filter((sale) => sale.status === "Completed");
+  // const revenue = completedSales.reduce((sum, sale) => sum + sale.amount, 0);
+  // const averageOrder = completedSales.length ? revenue / completedSales.length : 0;
+  // const lowStock = products.filter((product) => product.currentStock > 0 && product.currentStock <= product.minimumStock).length;
+  // const outOfStock = products.filter((product) => product.currentStock <= 0).length;
 
-  const trendData = useMemo(() => {
-    const daily = new Map<string, number>();
-    completedSales.forEach((sale) => daily.set(sale.date, (daily.get(sale.date) || 0) + sale.amount));
-    return Array.from(daily, ([date, amount]) => ({
-      day: new Date(`${date}T00:00:00`).toLocaleDateString("en-GB", { day: "2-digit", month: "short" }),
-      amount,
-      date,
-    })).sort((a, b) => a.date.localeCompare(b.date));
-  }, [completedSales]);
+  // const trendData = useMemo(() => {
+  //   const daily = new Map<string, number>();
+  //   completedSales.forEach((sale) => daily.set(sale.date, (daily.get(sale.date) || 0) + sale.amount));
+  //   return Array.from(daily, ([date, amount]) => ({
+  //     day: new Date(`${date}T00:00:00`).toLocaleDateString("en-GB", { day: "2-digit", month: "short" }),
+  //     amount,
+  //     date,
+  //   })).sort((a, b) => a.date.localeCompare(b.date));
+  // }, [completedSales]);
 
-  const topProducts = useMemo(() => {
-    const byProduct = new Map<string, number>();
-    filteredSales.filter((sale) => sale.status === "Completed").forEach((sale) => byProduct.set(sale.product, (byProduct.get(sale.product) || 0) + sale.amount));
-    return Array.from(byProduct, ([product, amount]) => ({ product, amount })).sort((a, b) => b.amount - a.amount).slice(0, 5);
-  }, [filteredSales]);
+  // const topProducts = useMemo(() => {
+  //   const byProduct = new Map<string, number>();
+  //   filteredSales.filter((sale) => sale.status === "Completed").forEach((sale) => byProduct.set(sale.product, (byProduct.get(sale.product) || 0) + sale.amount));
+  //   return Array.from(byProduct, ([product, amount]) => ({ product, amount })).sort((a, b) => b.amount - a.amount).slice(0, 5);
+  // }, [filteredSales]);
 
-  const exportCsv = () => {
-    const rows = [["Sale ID", "Date", "Product", "Customer", "Amount (GHS)", "Status"], ...filteredSales.map((sale: Sale) => [sale.id, sale.date, sale.product, sale.customer, sale.amount.toFixed(2), sale.status])];
-    const csv = rows.map((row) => row.map((value) => `"${String(value).replaceAll('"', '""')}"`).join(",")).join("\n");
-    const url = URL.createObjectURL(new Blob([csv], { type: "text/csv;charset=utf-8" }));
-    const link = document.createElement("a");
-    link.href = url;
-    link.download = "sales-report.csv";
-    link.click();
-    URL.revokeObjectURL(url);
-  };
+  // const exportCsv = () => {
+  //   const rows = [["Sale ID", "Date", "Product", "Customer", "Amount (GHS)", "Status"], ...filteredSales.map((sale: Sale) => [sale.id, sale.date, sale.product, sale.customer, sale.amount.toFixed(2), sale.status])];
+  //   const csv = rows.map((row) => row.map((value) => `"${String(value).replaceAll('"', '""')}"`).join(",")).join("\n");
+  //   const url = URL.createObjectURL(new Blob([csv], { type: "text/csv;charset=utf-8" }));
+  //   const link = document.createElement("a");
+  //   link.href = url;
+  //   link.download = "sales-report.csv";
+  //   link.click();
+  //   URL.revokeObjectURL(url);
 
-  return <div className={styles.page}>
-    <header className={styles.heading}>
+  return <div> </div>}
+
+    {/* <header className={styles.heading}>
       <div><p className={styles.eyebrow}>BUSINESS OVERVIEW</p><h1>Reports</h1><p className={styles.subtitle}>Understand sales performance and inventory health.</p></div>
       <div className={styles.actions}><label className={styles.rangeLabel}><span className={styles.visuallyHidden}>Report date range</span><select value={range} onChange={(event) => setRange(event.target.value as Range)}><option value="30">Last 30 days</option><option value="90">Last 90 days</option><option value="365">Last 12 months</option></select></label><button className={styles.exportButton} type="button" onClick={exportCsv}><ArrowDownToLine size={16} /> Export report</button></div>
     </header>
@@ -95,5 +95,5 @@ export default function Reports() {
       </tbody></table></div>
       <footer className={styles.footer}><span>{inventoryError || "Inventory alerts are based on current product stock."}</span><span><b>{products.length}</b> products tracked</span></footer>
     </section>
-  </div>;
-}
+  </div>; */}
+
